@@ -1,5 +1,13 @@
+:root {
+  --background-color: #F0F2F5;
+  --border-color: #d5d3d3;
+}
+
 .App {
   text-align: center;
+  height: 100vh;
+  overflow: scroll;
+  background-color: var(--background-color);
 }
 
 .App-logo {
