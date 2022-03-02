@@ -3,9 +3,6 @@ import { HomeContext } from '../../../contexts/HomeContext'
 
 export default function PostBox() {
 	const modal = useContext(HomeContext)
-	const togglePostModal = () => {
-		modal.setPostModal(v => !v)
-	}
 
 	return (
 		<div className='post-box shadow-sm mb-3'>
@@ -13,7 +10,7 @@ export default function PostBox() {
 				<div className="post-box-top__avatar m-2">
 					<img src="/img/avatar.png" alt=""/>
 				</div>
-				<div className="post-box-top__type m-2"  onClick={togglePostModal}>
+				<div className="post-box-top__type m-2"  onClick={modal.togglePostModal}>
 					<span className='text-muted'>Nhựt ơi, bạn đang nghĩ gì thế?</span>
 				</div>
 			</div>

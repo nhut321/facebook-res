@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import PostBox from './PostBox'
 import PostItem from './PostItem'
 import PostModal from './PostModal'
@@ -14,8 +14,13 @@ export default function Home() {
 			<HomeSidebar />
 			<div className="home-main d-flex align-items-center flex-column">
 				<PostBox />
+				<div className="post-lists d-flex flex-column-reverse">
+					{modal.postItem.map((v,i) => {
+					console.log(v)
+						return	<PostItem key={i} userId={v.userId._id} dataId={v._id} description={v.description} email={v.userId.email} />
+					})}
+				</div>
 				<PostModal />
-				<PostItem />
 			</div>
 			{modal.postModal 
 				? 

@@ -3,3 +3,8 @@ export const authInit = {
 	userId: '',
 	isLogin: false
 }
+
+export const postInit = {
+	description: '',
+	userId: ''
+}

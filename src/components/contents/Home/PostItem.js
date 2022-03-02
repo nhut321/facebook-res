@@ -1,13 +1,26 @@
+import { useState } from 'react'
+import axios from 'axios'
+import { baseUrl } from '../../baseUrl'
 
-export default function PostItem() {
+export default function PostItem({description, email, dataId, userId}) {
+	const [comment, setComment] = useState('')
+	const submitComment = (e) => {
+		e.preventDefault()
+		axios.post(baseUrl + '/comments/create',{
+			userId,
+			postId: dataId,
+			comment
+
+		})
+	}
 	return (
-		<div className="post-item shadow-sm mb-3">
+		<div className="post-item shadow-sm mb-3" data-id={dataId}>
 			<div className="post-item__header d-flex justify-content-between">
 				<div className="post-item__header-avatar">
 					<img src="/img/avatar.png" alt=""/>
 				</div>
 				<div className="post-item__header-info">
-					<a href="#" className='text-dark text-decoration-none'><span>znhut12333z</span></a>
+					<a href="#" className='text-dark text-decoration-none'><span>{userId}</span></a>
 					<span>Vai phut truoc</span>
 				</div>
 				<div className="post-item__header-more">
@@ -15,12 +28,8 @@ export default function PostItem() {
 				</div>
 			</div>
 			<div className="post-item__body mt-2 mb">
-				<div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-					Maiores quibusdam possimus quasi architecto earum nobis aut quam debitis quidem nulla.
-					Odit deleniti optio nesciunt doloribus minima fugiat veniam sapiente accusantium!
-					Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-					Maiores quibusdam possimus quasi architecto earum nobis aut quam debitis quidem nulla.
-					Odit deleniti optio nesciunt doloribus minima fugiat veniam sapiente accusantium!
+				<div>
+					{description}
 				</div>
 				<div className="post-item__body-btn mt-4">
 					<button>
@@ -36,13 +45,17 @@ export default function PostItem() {
 			</div>
 			<div className="post-item__footer d-flex">
 				<div className="post-item__footer-avatar me-2">
-					<img src="/img/avatar.png" alt="" style={{width: '32px', borderRadius: '50%'}}/>
+					<img src="/img/avatar.png" alt="" style={{width: '32px', height: '32px', borderRadius: '50%'}}/>
 				</div>
 				<div className="post-item__footer-input" style={{width: '100%'}}>
-					<input
-						placeholder='Viết bình luận...'
-						style={{width: '100%'}}
-					/>
+					<form onSubmit={submitComment}>
+						<input
+							value={comment}
+							onChange={e => setComment(e.target.value)}
+							placeholder='Viết bình luận...'
+							style={{width: '100%'}}
+						/>
+					</form>
 				</div>
 			</div>
 		</div>

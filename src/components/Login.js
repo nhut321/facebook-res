@@ -21,7 +21,7 @@ export default function Login() {
 		})
 		.then(res => {
 			if(res.data.success) {
-				Auth.dispatch({type: 'LOGIN', payload: res.data.user.email})
+				Auth.dispatch({type: 'LOGIN', email: res.data.user.email})
 				localStorage.setItem('token', res.data.token)
 			} else {
 				setValidator(false)

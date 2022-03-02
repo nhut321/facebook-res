@@ -19,17 +19,16 @@ function AuthContextProvider({children}) {
 				Authorization: 'Beaer ' + localStorage.getItem('token')
 			}
 		}).then(res => {
-			// console.log(res.data.user.email)
-			// console.log(res.data.success)
 			if (res.data.success) {
-				console.log(res.data)
-				dispatch({type: 'LOGIN', payload: res.data.user.email})
+				
+				dispatch({type: 'LOGIN', email: res.data.user.email, userId: res.data.user.userId})
 
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 			}
 		})
 	},[state.isLogin])
-	
+
+
 	const data = {
 		state,
 		dispatch
