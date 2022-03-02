@@ -36,16 +36,10 @@ export default function HomeContextProvider({children}) {
 			})
 	},[])
 
-	console.log(postItem)
-
 
 	const postFn = (e) => {
 		e.preventDefault()
 		if(state.description !== '') {
-			setPostItem(item => {
-				console.log(item)
-				return [...item,{ description: state.description, userId: {email: Auth.state.email}}]
-			})
 
 			axios.post(baseUrl + '/posts/create', {
 				description: state.description,
@@ -54,6 +48,10 @@ export default function HomeContextProvider({children}) {
 				.then(result => {
 					console.log(result.data)
 					if(result.data.success) {
+						setPostItem(item => {
+							console.log(item)
+							return [...item,{ description: state.description, userId: {email: Auth.state.email}, postId: result.data._id}]
+						})
 						setPostModal(false)
 					}
 				})

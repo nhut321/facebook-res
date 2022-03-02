@@ -17,7 +17,7 @@ export default function Home() {
 				<div className="post-lists d-flex flex-column-reverse">
 					{modal.postItem.map((v,i) => {
 					console.log(v)
-						return	<PostItem key={i} userId={v.userId._id} dataId={v._id} description={v.description} email={v.userId.email} />
+						return	<PostItem key={i} userId={v.userId._id} dataId={v.postId} description={v.description} email={v.userId.email} />
 					})}
 				</div>
 				<PostModal />

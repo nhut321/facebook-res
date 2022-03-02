@@ -139,6 +139,20 @@
 	margin: 16px 0 0 0;
 }
 
+.comment-item__avatar img {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+
+.comment-item__info-name {
+	font-size: 0.75rem;
+}
+
+.comment-item__info-comment {
+	font-size: 0.875rem;
+}
+
 .post-item__footer-input {
 	background-color: var(--background-color);
 	border-radius: 20px;
