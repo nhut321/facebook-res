@@ -1,4 +1,5 @@
 import { useState,useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
 import './Header.css'
 
@@ -25,7 +26,9 @@ export default function Header() {
 			<div className="header-left d-flex align-items-center">
 				<div className='header-left__logo'>
 					{/* <img src='/img/facebook.png'/> */}
-					<i className="fa-brands fa-facebook"></i>
+					<Link to='/'>
+						<i className="fa-brands fa-facebook"></i>
+					</Link>
 				</div>
 				<div className='header-left__search'>
 					<img src='/img/search-interface-symbol.png' />

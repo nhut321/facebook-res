@@ -7,4 +7,4 @@ function postReducer(state,action) {
 	}
 }
 
-export { postReducer }
+export { postReducer }  

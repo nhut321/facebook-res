@@ -8,3 +8,4 @@ export const postInit = {
 	description: '',
 	userId: ''
 }
+

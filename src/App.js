@@ -4,6 +4,7 @@ import { AuthContext } from './contexts/AuthContext'
 import Header from './components/Header'
 import Login from './components/Login'
 import Home from './components/contents/Home'
+import PostItemDetail from './components/contents/Home/PostItemDetail'
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Header />
             <Routes>
               <Route path='/' element={<Home />}/>
+              <Route path='/posts/detail/:id' element={<PostItemDetail />}/>
             </Routes>
           </>
         :

@@ -1,11 +1,13 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect,useContext } from 'react'
+import { HomeContext } from '../../../contexts/HomeContext'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { baseUrl } from '../../baseUrl'
 
 export default function PostItem({description, email, dataId, userId}) {
 	const input = useRef()
-	const [comment, setComment] = useState('')
-	const [commentItem, setCommentItem] = useState([])
+	const comment = useContext(HomeContext)
+	// const [commentItem, setCommentItem] = useState([])
 	// const [dataId, setDataId] = useState()
 
 	const submitComment = (e) => {
@@ -13,10 +15,10 @@ export default function PostItem({description, email, dataId, userId}) {
 		axios.post(baseUrl + '/comments/create',{
 			userId,
 			postId: dataId,
-			comment
+			comment: comment.comment
 		}).then(result => {
 			if(result.data.success) {
-				setComment('')
+				comment.setComment('')
 			}
 		})
 	}
@@ -24,18 +26,6 @@ export default function PostItem({description, email, dataId, userId}) {
 		input.current.focus()
 	}
 
-	useEffect(() => {
-		axios.get(baseUrl + '/comments/' + dataId)
-			.then(data => {
-				console.log(data.data)
-				data.data.map(v => {
-					setCommentItem(item => {
-						return [...item, {comment: v.comment}]
-					})
-				})
-			})
-	},[])
-	
 	return (
 		<div className="post-item shadow-sm mb-3" data-id={dataId}>
 			<div className="post-item__header d-flex justify-content-between">
@@ -43,7 +33,7 @@ export default function PostItem({description, email, dataId, userId}) {
 					<img src="/img/avatar.png" alt=""/>
 				</div>
 				<div className="post-item__header-info">
-					<a href="#" className='text-dark text-decoration-none'><span>{email}</span></a>
+					<Link to={`/posts/detail/post?post-id=${dataId}`} className='text-dark text-decoration-none'><span>{email}</span></Link>
 					<span>Vai phut truoc</span>
 				</div>
 				<div className="post-item__header-more">
@@ -69,40 +59,7 @@ export default function PostItem({description, email, dataId, userId}) {
 			<div className="post-item__footer">
 				<div className="comment-lists">
 
-					{
-						commentItem.map(v => {
-							return(
-								<div className="comment-item d-flex mt-2 mb-2">
-									<div className="comment-item__avatar">
-										<img src="/img/avatar.png" alt=""/>
-									</div>
-									<div className="comment-item__info text-start ms-2">
-										<div className="comment-item__info-name fw-bold">
-											Nhut Doan
-										</div>
-										<div className="comment-item__info-comment">
-											{v.comment}
-										</div>
-									</div>
-								</div>			
-							)
-						})
-					}
-					{/* <div className="comment-item d-flex mt-2 mb-2"> */}
-					{/* 	<div className="comment-item__avatar"> */}
-					{/* 		<img src="/img/avatar.png" alt=""/> */}
-					{/* 	</div> */}
-					{/* 	<div className="comment-item__info text-start ms-2"> */}
-					{/* 		<div className="comment-item__info-name fw-bold"> */}
-					{/* 			Nhut Doan */}
-					{/* 		</div> */}
-					{/* 		<div className="comment-item__info-comment"> */}
-					{/* 			Lorem isum absatrao case */}
-					{/* 		</div> */}
-					{/* 	</div> */}
-					{/* </div> */}
-
-					
+	
 
 				</div>
 				<div className="comment-box d-flex">
@@ -113,8 +70,8 @@ export default function PostItem({description, email, dataId, userId}) {
 						<form onSubmit={submitComment}>
 							<input
 								ref={input}
-								value={comment}
-								onChange={e => setComment(e.target.value)}
+								value={comment.comment}
+								onChange={e => comment.setComment(e.target.value)}
 								placeholder='Viết bình luận...'
 								style={{width: '100%'}}
 							/>

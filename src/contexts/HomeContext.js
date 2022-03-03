@@ -15,6 +15,7 @@ export const HomeContext = createContext()
 
 export default function HomeContextProvider({children}) {
 	const Auth = useContext(AuthContext)
+	const [comment, setComment] = useState('')
 	const [state, dispatch] = useReducer(postReducer, postInit)
 	const [postItem, setPostItem] = useState([])
 	const [postModal, setPostModal] = useState(false)
@@ -46,17 +47,25 @@ export default function HomeContextProvider({children}) {
 				userId: Auth.state.userId
 			})
 				.then(result => {
-					console.log(result.data)
+					// console.log(result.data)
 					if(result.data.success) {
 						setPostItem(item => {
-							console.log(item)
-							return [...item,{ description: state.description, userId: {email: Auth.state.email}, postId: result.data._id}]
+							const data = [...item,{
+							 description: state.description,
+							 userId: {email: Auth.state.email},
+							 postId: result.data.data._id
+							}]
+							console.log(data)
+							return data
 						})
+						// console.log(result.data.data._id, postItem)
 						setPostModal(false)
 					}
 				})
 		}
 	}
+
+	console.log(Auth)
 
 	const data = {
 		postModal,
@@ -64,6 +73,8 @@ export default function HomeContextProvider({children}) {
 		setPostModal,
 		togglePostModal,
 		postFn,
+		comment,
+		setComment,
 		state,
 		dispatch
 	}
