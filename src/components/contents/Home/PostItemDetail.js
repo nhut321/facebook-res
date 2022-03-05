@@ -1,9 +1,8 @@
 import { useEffect, useContext, useState, useRef} from 'react'
+import { Link } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { useLocation } from 'react-router-dom'
-import { HomeContext } from '../../../contexts/HomeContext'
 import { baseUrl } from '../../baseUrl'
-import PostItem from './PostItem'
 import axios from 'axios'
 
 export default function PostItemDetail() {
@@ -12,7 +11,6 @@ export default function PostItemDetail() {
 	const [comment, setComment] = useState('')
 	const [postItem, setPostItem] = useState({})
 	const [commentItem, setCommentItem] = useState([])
-	const post = useContext(HomeContext)
 	const search = useLocation().search
 	const postId = new URLSearchParams(search).get('post-id');
 
@@ -21,7 +19,9 @@ export default function PostItemDetail() {
 			.then(res => {
 				setPostItem({
 					email: res.data.data.userId.email,
-					description: res.data.data.description
+					description: res.data.data.description,
+					like: res.data.data.like.length,
+					verified: res.data.data.userId.verified
 				})
 			})
 	},[])
@@ -29,19 +29,21 @@ export default function PostItemDetail() {
 	useEffect(() => {
 		axios.get(baseUrl+'/comments/'+postId)
 			.then(result => {
-				console.log(result.data)
 				result.data.map(v => {
 					setCommentItem(item => {
 						const data = [...item, {
 							comment: v.comment,
-							user: v.userId.email
+							user: v.userId.email,
+							verified: v.userId.verified
 						}]
-						console.log(v)
+						
 						return data
 					})
 				})
 			})
 	},[])
+
+	console.log(postItem)
 
 	const submitComment = (e) => {
 		e.preventDefault()
@@ -51,7 +53,6 @@ export default function PostItemDetail() {
 			comment: comment
 		}).then(result => {
 			if(result.data.success) {
-				console.log(result.data)
 				setComment('')
 				setCommentItem([...commentItem, {
 					comment,
@@ -72,7 +73,26 @@ export default function PostItemDetail() {
 						<img src="/img/avatar.png" alt=""/>
 					</div>
 					<div className="post-item__header-info">
-						<div><span>{postItem.email}</span></div>
+						<Link to='/me' className='text-dark text-decoration-none d-flex align-items-center'>
+							<div className='fw-bold'>
+								<span>
+									{postItem.email}
+								</span>
+							</div>
+							<div className="post-item__header-verified">
+								{
+									postItem.verified
+									?
+										<div 
+											className="comment-item__info-verify ms-2"
+											style={{backgroundImage: 'url("/img/active.png")'}}
+										>
+										</div>
+									:
+										<></>
+								}
+							</div>
+						</Link>
 						<span>Vai phut truoc</span>
 					</div>
 					<div className="post-item__header-more">
@@ -83,7 +103,17 @@ export default function PostItemDetail() {
 					<div>
 						{postItem.description}
 					</div>
-					<div className="post-item__body-btn mt-4">
+					<div className='post-item__body-count mt-2 mb-2 d-flex justify-content-between'>
+						<div className="post-item__body-count-like">
+							{postItem.like}
+							{postItem.like > 1 ? ' likes' : ' like'}
+						</div>
+						<div className="post-item__body-count-comment">
+							{commentItem.length}
+							{commentItem.length > 1 ? ' comments' : ' comment'}
+						</div>
+					</div>
+					<div className="post-item__body-btn">
 						<button>
 							<i className="fa-regular fa-thumbs-up me-2"></i>
 							Like
@@ -93,7 +123,6 @@ export default function PostItemDetail() {
 							Comment
 						</button>
 					</div>
-					{/* <img src="https://drive.google.com/uc?export=view&id=1Urr3WgBY7aAc0fN9Rfc5lIaeDaPfGJCQ" alt=""/> */}
 				</div>
 				<div className="post-item__footer">
 					<div className="comment-lists">
@@ -119,27 +148,43 @@ export default function PostItemDetail() {
 					</div>
 				</div>
 			</div>
-			<div className="post-item-detail__comments">
-
+			<div className="post-item-detail__comments rounded-4">
 				{
-					// console.log(commentItem)
 					commentItem.map((v,i) => {
-					 	return	(<div key={i} className="comment-item d-flex mt-2 mb-2">
-									<div className="comment-item__avatar">
-										<img src="/img/avatar.png" alt=""/>
-									</div>
-									<div className="comment-item__info text-start ms-2">
-										<div className="comment-item__info-name fw-bold">
+					 	return	(
+					 		<div key={i} className="comment-item d-flex">
+								<div className="comment-item__avatar">
+									<img src="/img/avatar.png" alt=""/>
+								</div>
+								<div className="comment-item__info text-start ms-2">
+									<div className='comment-item__info-top'>
+										<div className="comment-item__info-top-name pt-2 fw-bold d-flex align-items-center">
 											{v.user}
+											{
+												v.verified
+												?
+													<div 
+														className="comment-item__info-verify ms-2"
+														style={{backgroundImage: 'url("/img/active.png")'}}
+													>
+													</div>
+												:
+													<></>
+											}
 										</div>
-										<div className="comment-item__info-comment">
+										<div className="comment-item__info-top-comment">
 											{v.comment}
 										</div>
 									</div>
-								</div>)
+									<div className='comment-item__info-like'>
+										<span className='me-3 text-muted'>Thích</span>
+										<span className='text-muted'>Phản hồi</span>
+									</div>
+								</div>
+							</div>
+						)
 					})
 				}
-
 			</div>
 		</div>
 	)

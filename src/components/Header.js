@@ -1,15 +1,17 @@
 import { useState,useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
+import { HomeContext } from '../contexts/HomeContext'
 import './Header.css'
 
 export default function Header() {
 	const Auth = useContext(AuthContext)
-	const [toggleState, setToggleState] = useState(1)
+	const toggle = useContext(HomeContext)
+	// const [toggleState, setToggleState] = useState(1)
 	const [userMenu, setUserMenu] = useState(true)
 
 	const toggleFn = function(index) {
-		setToggleState(index)
+		toggle.setToggleTabMenu(index)
 	}
 
 	const logOut = () => {
@@ -20,12 +22,10 @@ export default function Header() {
 	const toggleUserMenu = () => {
 		setUserMenu(v => !v)
 	}
-
 	return (
 		<div className="header d-flex justify-content-between shadow-sm">
 			<div className="header-left d-flex align-items-center">
 				<div className='header-left__logo'>
-					{/* <img src='/img/facebook.png'/> */}
 					<Link to='/'>
 						<i className="fa-brands fa-facebook"></i>
 					</Link>
@@ -37,43 +37,56 @@ export default function Header() {
 			<div className="header-center">
 				<ul className="header-center__tab-ui d-flex align-items-center">
 					<li 
-						className={toggleState === 1 ? 'tab-ui__item active' : 'tab-ui__item'}
+						className={toggle.toggleTabMenu === 1 ? 'tab-ui__item active' : 'tab-ui__item'}
 						onClick={() => toggleFn(1)}
 					>
-						<img src="/img/home1.png" alt="" />
+						<Link to='/'>
+							<img src="/img/home.png" alt="" />
+						</Link>
 					</li>
 					<li 
-						className={toggleState === 2 ? 'tab-ui__item active' : 'tab-ui__item'}
+						className={toggle.toggleTabMenu === 2 ? 'tab-ui__item active' : 'tab-ui__item'}
 						onClick={() => toggleFn(2)}
 					>
-						<img src="/img/friends(1).png" alt="" />
+						<a href='#'>
+							<img src="/img/friends(1).png" alt="" />
+						</a>
 					</li>
 					<li 
-						className={toggleState === 3 ? 'tab-ui__item active' : 'tab-ui__item'}
+						className={toggle.toggleTabMenu === 3 ? 'tab-ui__item active' : 'tab-ui__item'}
 						onClick={() => toggleFn(3)}
 					>
-						<img src="/img/play.png" alt="" />
+						<a href='#'>
+							<img src="/img/play.png" alt="" />
+						</a>
 					</li>
 					<li 
-						className={toggleState === 4 ? 'tab-ui__item active' : 'tab-ui__item'}
+						className={toggle.toggleTabMenu === 4 ? 'tab-ui__item active' : 'tab-ui__item'}
 						onClick={() => toggleFn(4)}
 					>
-						<img src="/img/online-shopping.png" alt="" />
+						<a href='#'>
+							<img src="/img/online-shopping.png" alt="" />
+						</a>
 					</li>
 					<li 
-						className={toggleState === 5 ? 'tab-ui__item active' : 'tab-ui__item'}
+						className={toggle.toggleTabMenu === 5 ? 'tab-ui__item active' : 'tab-ui__item'}
 						onClick={() => toggleFn(5)}
 					>
-						<img src={toggleState === 5 ? '/img/multiple-users-silhouette.png' : '/img/people.png'} alt="" />
+						<a href='#' >
+							<img src={toggle.toggleTabMenu === 5 ? '/img/multiple-users-silhouette.png' : '/img/people.png'} alt="" />
+						</a>
 					</li>
 				</ul>
 			</div>
 			<div className="header-right d-flex align-items-center">
-				<div className="header-right__user me-2 d-flex">
-					<a className='text-dark text-decoration-none' href="#">
-						<img src="https://drive.google.com/uc?export=view&id=1tv1nrovkDxdV1d7HM7BF6BzEJj89SDtv" alt=""/>
+				<div 
+					className="header-right__user me-2 d-flex"
+					onClick={() => Auth.setToggleTabMenu(3)}
+				>
+					<Link className='text-dark text-decoration-none' to="/me">
+						<img src="/img/avatar.png" alt=""/>
 						<span className='p-1'><strong>{Auth.state.email.split('@')[0]}</strong></span>
-					</a>
+					</Link>
 				</div>
 				<div className="header-right__options d-flex align-items-center">
 					<div className="header-right__options-item menu">
@@ -96,11 +109,13 @@ export default function Header() {
 							<li className="down-btn__dropdown-item d-flex align-items-center">
 								
 								<div className="dropdown-item-left avatar">
-									<img src="https://drive.google.com/uc?export=view&id=1tv1nrovkDxdV1d7HM7BF6BzEJj89SDtv" alt=""/>
+									<img src="/img/avatar.png" alt=""/>
 								</div>
 								<div className="dropdown-item-right d-flex flex-column">
-									<span className='fs-5'>{Auth.state.email}</span>
-									<span className='text-muted'>Xem trang cá nhân của bạn</span>
+									<Link to='/me'>
+										<span className='fs-5'>{Auth.state.email}</span>
+										<span className='text-muted'>Xem trang cá nhân của bạn</span>
+									</Link>
 								</div>
 							</li>
 							<li className="down-btn__dropdown-item border-top border-bottom d-flex align-items-center">

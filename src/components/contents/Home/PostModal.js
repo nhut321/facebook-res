@@ -27,6 +27,7 @@ export default function PostModal() {
 							</div>
 							<div className="post-modal__form-body-bottom mt-4">
 								<textarea
+									className='col-12'
 									autoFocus
 									placeholder='Bạn đang nghĩ gì thế?'
 									name="" 

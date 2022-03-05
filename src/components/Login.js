@@ -1,10 +1,12 @@
 import { useState,useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
 import './Login.css'
 import { baseUrl } from './baseUrl'
 import axios from 'axios'
 
 export default function Login() {
+	const navigate = useNavigate()
 	const Auth = useContext(AuthContext)
 	const [user, setUser] = useState({
 		email: '',
@@ -17,11 +19,15 @@ export default function Login() {
 		e.preventDefault()
 		axios.post(baseUrl + '/user/login', {
 			email: user.email,
-			password: user.password
+			password: user.password 
 		})
 		.then(res => {
 			if(res.data.success) {
-				Auth.dispatch({type: 'LOGIN', email: res.data.user.email})
+				navigate('/')
+				Auth.dispatch({
+						type: 'LOGIN', 
+						email: res.data.user.email
+						})
 				localStorage.setItem('token', res.data.token)
 			} else {
 				setValidator(false)

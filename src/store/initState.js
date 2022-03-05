@@ -1,7 +1,8 @@
 export const authInit = {
 	email: '',
 	userId: '',
-	isLogin: false
+	isLogin: false,
+	verified: false, 
 }
 
 export const postInit = {

@@ -1,7 +1,12 @@
 function authReducer(state,action) {
 	switch (action.type){
 		case 'LOGIN':
-			return {...state, isLogin: true, email: action.email, userId: action.userId}
+			return {...state, 
+				isLogin: true, 
+				email: action.email, 
+				userId: action.userId,
+				verified: action.verified
+			}
 		case 'LOGOUT':
 			return {...state, isLogin: false, email: ''}
 		default:

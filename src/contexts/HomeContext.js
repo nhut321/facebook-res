@@ -15,6 +15,7 @@ export const HomeContext = createContext()
 
 export default function HomeContextProvider({children}) {
 	const Auth = useContext(AuthContext)
+	const [toggleTabMenu, setToggleTabMenu] = useState(1)
 	const [comment, setComment] = useState('')
 	const [state, dispatch] = useReducer(postReducer, postInit)
 	const [postItem, setPostItem] = useState([])
@@ -44,28 +45,27 @@ export default function HomeContextProvider({children}) {
 
 			axios.post(baseUrl + '/posts/create', {
 				description: state.description,
-				userId: Auth.state.userId
+				userId: Auth.state.userId,
 			})
 				.then(result => {
-					// console.log(result.data)
 					if(result.data.success) {
 						setPostItem(item => {
 							const data = [...item,{
 							 description: state.description,
-							 userId: {email: Auth.state.email},
-							 postId: result.data.data._id
+							 userId: {
+							 	email: Auth.state.email,
+							 	verified: Auth.state.verified
+							 },
+							 _id: result.data.data._id,
+							 like: result.data.data.like
 							}]
-							console.log(data)
 							return data
 						})
-						// console.log(result.data.data._id, postItem)
 						setPostModal(false)
 					}
 				})
 		}
 	}
-
-	console.log(Auth)
 
 	const data = {
 		postModal,
@@ -76,7 +76,9 @@ export default function HomeContextProvider({children}) {
 		comment,
 		setComment,
 		state,
-		dispatch
+		dispatch,
+		toggleTabMenu,
+		setToggleTabMenu
 	}
 
 	return (

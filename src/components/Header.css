@@ -46,6 +46,11 @@
     border-bottom: 4px solid transparent;
 }
 
+.tab-ui__item > a {
+    width: 100%;
+    padding: 1rem 0;
+}
+
 .tab-ui__item.active {
     border-bottom: 4px solid;
     height: 100%;
@@ -170,8 +175,17 @@
     width: 20px;
 }
 
-
-.dropdown-item-right > span {
+.dropdown-item-right > a {
+    display: block;
+    text-decoration: none;
     text-align: left;
+}
+
+.dropdown-item-right > a > span {
     font-size: 12px;
+}
+
+.dropdown-item-right > a > span:first-child {
+    color: black;
+    display: block
 }
