@@ -20,9 +20,9 @@ function AuthContextProvider({children}) {
 			}
 		}).then(res => {
 			if (res.data.success) {
-				
 				dispatch({
-					type: 'LOGIN', 
+					type: 'LOGIN',
+					fullName: res.data.user.fullName,
 					email: res.data.user.email, 
 					userId: res.data.user.userId,
 					verified: res.data.user.verified

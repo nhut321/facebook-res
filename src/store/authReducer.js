@@ -3,7 +3,8 @@ function authReducer(state,action) {
 		case 'LOGIN':
 			return {...state, 
 				isLogin: true, 
-				email: action.email, 
+				email: action.email,
+				fullName: action.fullName,
 				userId: action.userId,
 				verified: action.verified
 			}

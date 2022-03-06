@@ -31,9 +31,9 @@ export default function Post() {
 
 
 	return (
-		<div className="me-contents-post d-flex justify-content-center mt-3">
-			<div className="me-contents-post__left me-3">
-				<div className="me-contents-post__left-intro shadow-sm">
+		<div className="profile-contents-post d-flex justify-content-center mt-3">
+			<div className="profile-contents-post__left me-3">
+				<div className="profile-contents-post__left-intro shadow-sm">
 					<div className="intro-header">
 						<span>Intro</span>
 					</div>
@@ -65,7 +65,7 @@ export default function Post() {
 					</div>
 				</div>
 			</div>
-			<div className="me-contents-post__post-right">
+			<div className="profile-contents-post__post-right">
 				<PostBox />
 				<div className='d-flex flex-column-reverse'>
 					{

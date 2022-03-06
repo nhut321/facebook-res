@@ -1,13 +1,13 @@
-.me-header {
+.profile-header {
 	background-color: white;
 }
 
-.me-cover img {
+.profile-cover img {
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
 
-.me-info {
+.profile-info {
 	position: relative;
 	display: flex;
 	max-width: 900px;
@@ -19,43 +19,43 @@
 	border-bottom: 1px solid #c5c5c5;
 }
 
-.me-info__left-avatar {
+.profile-info__left-avatar {
 	position: absolute;
     left: 0;
     top: -55px;
     border: 5px solid white;
 }
 
-.me-info__center {
+.profile-info__center {
 	text-align: left;
 	width: 362px;
 }
 
-.me-info__center-active {
+.profile-info__center-active {
 	width: 16px;
     height: 16px;
     background-position: -80px -88px;
     background-size: auto;
 }
 
-.me-info__left-avatar {
+.profile-info__left-avatar {
 	width: 168px;
 	height: 168px;
 	border-radius: 50%;
 	overflow: hidden;
 }
 
-.me-info__left-avatar img {
+.profile-info__left-avatar img {
 	width: 100%;
 }
 
-.me-bottom {
+.profile-bottom {
 	max-width: 900px;
     min-width: 850px;
     margin: auto;
 }
 
-.me-bottom__link > a {
+.profile-bottom__link > a {
 	color: #7c7c7e;
 	display: inline-block;
     padding: 1rem;
@@ -63,12 +63,12 @@
     border-radius: 5px;
 }
 
-.me-bottom__link > a.active {
+.profile-bottom__link > a.active {
 	position: relative;
 	color: black;
 }
 
-.me-bottom__link > a.active:after {
+.profile-bottom__link > a.active:after {
 	content: '';
     position: absolute;
     left: 0;
@@ -79,12 +79,12 @@
     background-color: black;
 }
 
-.me-bottom__link > a:hover {
+.profile-bottom__link > a:hover {
 	color: #7c7c7e;
 	background-color: var(--background-color)
 }
 
-.me-bottom__menu {
+.profile-bottom__menu {
 	padding: 6px 16px;
     background-color: var(--background-color);
     border-radius: 5px;
@@ -94,17 +94,17 @@
     cursor: pointer;
 }
 
-.me-contents-post {
+.profile-contents-post {
 	max-width: 900px;
     min-width: 850px;
     margin: auto;
 }
 
-.me-contents-post__left {
+.profile-contents-post__left {
 	flex: 1;
 }
 
-.me-contents-post__left-intro {
+.profile-contents-post__left-intro {
 	background-color: white;
 	padding: 1rem;
 	border-radius: 5px;

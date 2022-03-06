@@ -1,5 +1,6 @@
 export const authInit = {
 	email: '',
+	fullName: '',
 	userId: '',
 	isLogin: false,
 	verified: false, 

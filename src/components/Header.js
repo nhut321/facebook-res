@@ -22,6 +22,9 @@ export default function Header() {
 	const toggleUserMenu = () => {
 		setUserMenu(v => !v)
 	}
+
+	let name = Auth.state.fullName
+
 	return (
 		<div className="header d-flex justify-content-between shadow-sm">
 			<div className="header-left d-flex align-items-center">
@@ -81,11 +84,16 @@ export default function Header() {
 			<div className="header-right d-flex align-items-center">
 				<div 
 					className="header-right__user me-2 d-flex"
-					onClick={() => Auth.setToggleTabMenu(3)}
 				>
 					<Link className='text-dark text-decoration-none' to="/me">
 						<img src="/img/avatar.png" alt=""/>
-						<span className='p-1'><strong>{Auth.state.email.split('@')[0]}</strong></span>
+						<span className='p-1'>
+							<strong>
+								{
+									name
+								}
+							</strong>
+						</span>
 					</Link>
 				</div>
 				<div className="header-right__options d-flex align-items-center">
@@ -113,7 +121,7 @@ export default function Header() {
 								</div>
 								<div className="dropdown-item-right d-flex flex-column">
 									<Link to='/me'>
-										<span className='fs-5'>{Auth.state.email}</span>
+										<span className='fs-5'>{Auth.state.fullName}</span>
 										<span className='text-muted'>Xem trang cá nhân của bạn</span>
 									</Link>
 								</div>

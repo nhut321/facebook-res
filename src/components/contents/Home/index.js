@@ -27,7 +27,7 @@ export default function Home() {
 										userId={v.userId._id} 
 										dataId={v._id} 
 										description={v.description} 
-										email={v.userId.email}
+										fullName={v.userId.fullName}
 										commentProps={[]}
 										likePost={v.like}
 										verifiedAccount={v.userId.verified}

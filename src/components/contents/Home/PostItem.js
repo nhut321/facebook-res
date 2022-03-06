@@ -7,7 +7,7 @@ import { baseUrl } from '../../baseUrl'
 
 export default function PostItem({
 		description, 
-		email,
+		fullName,
 		dataId, 
 		userId, 
 		commentProps, 
@@ -74,7 +74,7 @@ export default function PostItem({
 					
 					return [...v, {
 						userId: {
-							email: Auth.state.email,
+							fullName: Auth.state.fullName,
 							verified: Auth.state.verified
 						},
 						comment: result.data.commentItem.comment		
@@ -87,6 +87,7 @@ export default function PostItem({
 		input.current.focus()
 	}
 
+
 	return (
 		<div className="post-item shadow-sm mb-3" data-id={dataId}>
 			<div className="post-item__header d-flex justify-content-between">
@@ -94,13 +95,17 @@ export default function PostItem({
 					<img src="/img/avatar.png" alt=""/>
 				</div>
 				<div className="post-item__header-info">
-					<Link 
-						to={`/posts/detail/post?post-id=${dataId}`} 
+					<div
 						className='text-dark text-decoration-none d-flex align-items-center'
-						onClick={() => homeContext.setToggleTabMenu(0)}
+						// onClick={() => homeContext.setToggleTabMenu(0)}
 					>
 						<span className='fw-bold'>
-							{email}
+							<Link 
+								to={`/user/user-id?id=${userId}`}
+								className='text-dark text-decoration-none'
+							>
+								{fullName}
+							</Link>
 						</span>
 						<div className="post-item__header-verified">
 							{
@@ -115,8 +120,15 @@ export default function PostItem({
 									<></>
 							}
 						</div>
-					</Link>
-					<span>Vai phut truoc</span>
+					</div>
+					<span>
+						<Link 
+							to={`/posts/detail/post?post-id=${dataId}`}
+							className='text-dark text-decoration-none'
+						>
+							Vai phut truoc
+						</Link>
+					</span>
 				</div>
 				<div className="post-item__header-more">
 					<img src="/img/more.png" alt=""/>
@@ -171,7 +183,7 @@ export default function PostItem({
 								<div className="comment-item__info text-start ms-2">
 									<div className='comment-item__info-top'>
 										<div className="comment-item__info-top-name pt-2 fw-bold d-flex align-items-center">
-											{v.userId.email}
+											{v.userId.fullName}
 											{
 												v.userId.verified
 												?
