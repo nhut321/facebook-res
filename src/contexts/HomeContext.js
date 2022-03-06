@@ -36,6 +36,9 @@ export default function HomeContextProvider({children}) {
 					setPostItem(post => [...post, v])
 				})
 			})
+		return () => {
+			setPostItem([])
+		}
 	},[])
 
 
@@ -53,12 +56,15 @@ export default function HomeContextProvider({children}) {
 							const data = [...item,{
 							 description: state.description,
 							 userId: {
+							 	_id: result.data.data.userId,
+							 	fullName: Auth.state.fullName,
 							 	email: Auth.state.email,
 							 	verified: Auth.state.verified
 							 },
 							 _id: result.data.data._id,
 							 like: result.data.data.like
 							}]
+							console.log(result.data)
 							return data
 						})
 						setPostModal(false)

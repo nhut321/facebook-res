@@ -21,7 +21,7 @@ export default function Home() {
 						<h4 className='text-muted mt-4'>Hiện đã hết bài đăng, hãy kết bạn để xem nhiều hơn</h4>
 						:
 						modal.postItem.map((v,i) => {
-							// console.log(v.like)
+							console.log(v)
 							return	<PostItem 
 										key={i} 
 										userId={v.userId._id} 

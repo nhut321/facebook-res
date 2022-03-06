@@ -2,9 +2,6 @@ import { useContext } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import Profile from './Profile'
-import Post from './Post'
-import About from './About'
-import Friends from './Friends'
 import './Me.css'
 
 export default function Me() {
@@ -66,13 +63,14 @@ export default function Me() {
 {/* 					</div> */}
 {/* 				</div> */}
 {/* 			</div> */}
-			<div className="profile-contents">
-				<Routes>
-					<Route path='/' element={<Post />}/>
-					<Route path='/about/' element={<About />}/>
-					<Route path='/friends/' element={<Friends />}/>
-				</Routes>
-			</div>
+
+			{/* <div className="profile-contents"> */}
+			{/* 	<Routes> */}
+			{/* 		<Route path='/' element={<Post />}/> */}
+			{/* 		<Route path='/about/' element={<About />}/> */}
+			{/* 		<Route path='/friends/' element={<Friends />}/> */}
+			{/* 	</Routes> */}
+			{/* </div> */}
 		</div>
 	)
 }

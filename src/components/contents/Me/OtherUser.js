@@ -32,16 +32,16 @@ function OtherUser() {
 			})
 	},[])
 
-	console.log(profileUser)
-
 	return(
 		// <h1>Other User</h1>
 
 		<Profile 
 			Auth={{
-				fullName: profileUser.fullName,
-				verified: profileUser.verified,
-				userId: userIdParams
+				state: {
+					fullName: profileUser.fullName,
+					verified: profileUser.verified,
+					userId: userIdParams
+				}
 			}}
 		/>
 	)

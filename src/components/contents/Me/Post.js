@@ -11,9 +11,7 @@ export default function Post() {
 	const Auth = useContext(AuthContext)
 	const modal = useContext(HomeContext)
 	const [postItem, setPostItem] = useState([])
-	const [comment, setComment] = useState([
-			'Hello', 'how are you'
-		])
+
 
 	useEffect(() => {
 		axios.get(baseUrl + '/posts/user/'+ Auth.state.userId)
@@ -72,10 +70,9 @@ export default function Post() {
 						postItem.map((v,i) => {
 							// if(v.userId._id === Auth.state.userId) {
 								return (<PostItem 
-											key={i} 
-											email={Auth.state.email} 
+											key={i}
 											description={v.description}
-											commentProps={comment}
+											fullName={v.userId.fullName}
 											dataId={v._id}
 											verifiedAccount={v.userId.verified}
 											likePost={v.like}

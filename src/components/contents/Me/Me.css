@@ -29,6 +29,8 @@
 .profile-info__center {
 	text-align: left;
 	width: 362px;
+    padding-left: 168px;
+	flex: 1;
 }
 
 .profile-info__center-active {

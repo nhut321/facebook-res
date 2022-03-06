@@ -18,7 +18,7 @@ export default function PostItemDetail() {
 		axios.get(baseUrl+'/posts/'+postId)
 			.then(res => {
 				setPostItem({
-					email: res.data.data.userId.email,
+					fullName: res.data.data.userId.fullName,
 					description: res.data.data.description,
 					like: res.data.data.like.length,
 					verified: res.data.data.userId.verified
@@ -76,7 +76,7 @@ export default function PostItemDetail() {
 						<Link to='/me' className='text-dark text-decoration-none d-flex align-items-center'>
 							<div className='fw-bold'>
 								<span>
-									{postItem.email}
+									{postItem.fullName}
 								</span>
 							</div>
 							<div className="post-item__header-verified">

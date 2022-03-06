@@ -9,8 +9,7 @@ export default function PostItem({
 		description, 
 		fullName,
 		dataId, 
-		userId, 
-		commentProps, 
+		userId,
 		likePost,
 		verifiedAccount
 	}) {
@@ -87,6 +86,7 @@ export default function PostItem({
 		input.current.focus()
 	}
 
+	console.log(userId)
 
 	return (
 		<div className="post-item shadow-sm mb-3" data-id={dataId}>
