@@ -6,15 +6,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthContextProvider from './contexts/AuthContext'
-import HomeContextProvider from './contexts/HomeContext'
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthContextProvider>
-        <HomeContextProvider>
-          <App />
-        </HomeContextProvider>
+        <App />
       </AuthContextProvider>
     </Router>
   </React.StrictMode>,

@@ -45,3 +45,12 @@
     transform: rotate(360deg);
   }
 }
+
+.login {
+  display: block
+}
+
+.register {
+  display: none;
+}
+

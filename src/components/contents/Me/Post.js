@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import PostBox from '../Home/PostBox'
 import PostItem from '../Home/PostItem'
 import PostModal from '../Home/PostModal'
@@ -8,13 +9,17 @@ import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
 
 export default function Post() {
+	const location = useLocation()
+	const userIdParams = new URLSearchParams(location.search).get('id')
+
+
 	const Auth = useContext(AuthContext)
 	const modal = useContext(HomeContext)
 	const [postItem, setPostItem] = useState([])
 
 
 	useEffect(() => {
-		axios.get(baseUrl + '/posts/user/'+ Auth.state.userId)
+		axios.get(baseUrl + '/posts/user/'+ (userIdParams || Auth.state.userId))
 			.then(res => {
 				res.data.data.map(v => {
 					setPostItem(item => {

@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
+import { HomeContext } from '../../../contexts/HomeContext'
 import Post from './Post'
 import About from './About'
 import Friends from './Friends'
@@ -9,15 +10,50 @@ import axios from 'axios'
 
 export default function Profile({Auth}) {
 	const authContext = useContext(AuthContext)
+	const homeContext = useContext(HomeContext)
+	const [follow, setFollow] = useState(false)
+	const [follower, setFollower] = useState([])
+	const [following, setFollowing] = useState([])
+	const [followState, setFollowState] = useState({
+		follower: [],
+		following: []
+	})
 	const [friends, setFriends] = useState([])
 	useEffect(() => {
 		axios.get(baseUrl + '/user/' + (Auth.userId || Auth.state.userId ))
-			.then(res => setFriends(res.data.user.friends))
+			.then(res => {
+				// console.log(res.data)
+				if (res.data.user.follower.includes(authContext.state.userId)) {
+					setFollow(true)
+				}
+				setFollower(res.data.user.follower)
+				setFollowing(res.data.user.following)
+			})
 		return () => {
             	setFriends([])
         	}
 	},[])
 
+	const followFn = () => {
+		setFollow(v => !v)
+		axios.put(baseUrl + '/user/' + Auth.state.userId + '/follow', {
+			currentId: authContext.state.userId
+		}).then(res => console.log(res.data))
+		setFollower(v => {
+			return [...v, authContext.state.userId]
+		})
+	}
+
+	const unFollowFn = () => {
+		setFollow(v => !v)
+		axios.put(baseUrl + '/user/' + Auth.state.userId + '/unfollow', {
+			currentId: authContext.state.userId
+		}).then(res => console.log(res.data))
+		setFollower(v => {
+			const result = v.filter(item => item !== authContext.state.userId)
+			return result
+		})
+	}
 	
 	
 	return (
@@ -29,7 +65,7 @@ export default function Profile({Auth}) {
 				<div className="profile-info pb-4">
 					<div className="profile-info__left">
 						<div className="profile-info__left-avatar">
-							<img src="/img/avatar.png" alt=""/>
+							<img src={Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar} alt=""/>
 						</div>
 					</div>
 					<div className="profile-info__center ms-4">
@@ -48,24 +84,43 @@ export default function Profile({Auth}) {
 
 							}
 						</div>
-						<div className="profile-info__center-friends">
-							{friends.length}
-							{friends.length < 2 ? ' Friend' : ' Friends'}
+						<div className="profile-info__center-follow d-flex">
+							<div className="follower me-2">
+								{follower.length +' '}
+								follower
+							</div>
+							<div className="following">
+								{following.length +' '}
+								following
+							</div>
 						</div>
 					</div>
 					<div className="profile-info__right">
 						{
 							Auth.state.userId === authContext.state.userId
 							?
-							<button className='btn btn-primary me-2'>
-								<i className="fa-solid fa-plus"></i>
-								Add stories
-							</button>
+								<button className='btn btn-primary me-2'>
+									<i className="fa-solid fa-plus"></i>
+									Add stories
+								</button>
 							:
-							<button className='btn btn-primary me-2'>
-								<i className="fa-solid fa-plus"></i>
-								Add friend
-							</button>
+								follow 
+								?
+									<button 
+										className='btn btn-primary me-2'
+										onClick={unFollowFn}
+									>
+										<i className="fa-solid fa-check me-2"></i>
+										Unfollow
+									</button>
+								:
+									<button 
+										className='btn btn-primary me-2'
+										onClick={followFn}
+									>
+										<i className="fa-solid fa-plus me-2"></i>
+										Follow
+									</button>
 						}
 						<button className='btn text-dark' style={{backgroundColor: 'var(--background-color)'}}>
 							<i className="fa-solid fa-pen"></i>

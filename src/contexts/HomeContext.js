@@ -10,8 +10,10 @@ import { baseUrl } from '../components/baseUrl'
 import { postReducer } from '../store/postReducer'
 import { postInit } from '../store/initState'
 import axios from 'axios'
+import io from 'socket.io-client'
 
 export const HomeContext = createContext()
+const socket=io('http://localhost:8080')
 
 export default function HomeContextProvider({children}) {
 	const Auth = useContext(AuthContext)
@@ -26,6 +28,13 @@ export default function HomeContextProvider({children}) {
 	}
 
 	useEffect(() => {
+		axios.get(baseUrl + '/user/' + Auth.state.userId)
+			.then(res => console.log(res.data))	
+	})
+	// console.log(Auth.state)
+
+
+	useEffect(() => {
 		axios.get(baseUrl + '/posts/', {
 			headers: {
 				Authorization: 'Beaer ' + localStorage.getItem('token')
@@ -36,11 +45,10 @@ export default function HomeContextProvider({children}) {
 					setPostItem(post => [...post, v])
 				})
 			})
-		return () => {
-			setPostItem([])
-		}
+			.catch((err) => {
+				throw err
+			})
 	},[])
-
 
 	const postFn = (e) => {
 		e.preventDefault()
@@ -59,7 +67,8 @@ export default function HomeContextProvider({children}) {
 							 	_id: result.data.data.userId,
 							 	fullName: Auth.state.fullName,
 							 	email: Auth.state.email,
-							 	verified: Auth.state.verified
+							 	verified: Auth.state.verified,
+							 	avatar: Auth.state.avatar
 							 },
 							 _id: result.data.data._id,
 							 like: result.data.data.like

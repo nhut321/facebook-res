@@ -6,7 +6,10 @@ function authReducer(state,action) {
 				email: action.email,
 				fullName: action.fullName,
 				userId: action.userId,
-				verified: action.verified
+				verified: action.verified,
+				avatar: action.avatar,
+				fname: action.fname,
+				lname: action.lname
 			}
 		case 'LOGOUT':
 			return {...state, isLogin: false, email: ''}

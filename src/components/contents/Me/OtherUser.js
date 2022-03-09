@@ -14,6 +14,7 @@ function OtherUser() {
 		friends: '',
 		fullName: '',
 		verified: '',
+		avatar: ''
 	})
 
 	useEffect(() => {
@@ -26,7 +27,8 @@ function OtherUser() {
 						avatar: res.data.user.avatar,
 						friends: res.data.user.friends,
 						fullName: res.data.user.fullName,
-						verified: res.data.user.verified
+						verified: res.data.user.verified,
+						avatar: res.data.user.avatar
 					})
 				}
 			})
@@ -40,7 +42,8 @@ function OtherUser() {
 				state: {
 					fullName: profileUser.fullName,
 					verified: profileUser.verified,
-					userId: userIdParams
+					userId: userIdParams,
+					avatar: profileUser.avatar
 				}
 			}}
 		/>

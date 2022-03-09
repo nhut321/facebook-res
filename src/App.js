@@ -1,8 +1,10 @@
-import { useContext } from 'react'
+import { useContext,useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AuthContext } from './contexts/AuthContext'
+import HomeContextProvider from './contexts/HomeContext'
 import Header from './components/Header'
 import Login from './components/Login'
+import Register from './components/Register'
 import Home from './components/contents/Home'
 import Me from './components/contents/Me'
 import OtherUser from './components/contents/Me/OtherUser'
@@ -11,12 +13,13 @@ import './App.css';
 
 function App() {
   const Auth = useContext(AuthContext)
+  const [switchLogin, setSwitchLogin] = useState(false)
   return (
     <div className="App">
       {
         Auth.state.isLogin 
         ? 
-          <>
+          <HomeContextProvider>
             <Header />
             <div style={{marginTop: '70px'}}>
               <Routes>
@@ -26,9 +29,21 @@ function App() {
                 <Route path='/me/*' element={<Me />}/>
               </Routes>
             </div>
-          </>
+          </HomeContextProvider>
         :
-          <Login />
+          <>
+          <Routes>
+            <Route path='/login' element={<Login />}>
+            </Route>
+            <Route path='/register' element={<Register />}>
+            </Route>
+            
+          </Routes>
+            {/* <Routes> */}
+            {/*   <Route path='/login' element ={<Login />} /> */}
+            {/*   <Route path='/register' element={<Register />}/> */}
+            {/* </Routes> */}
+          </>
       }
 
     </div>

@@ -11,7 +11,8 @@ export default function PostItem({
 		dataId, 
 		userId,
 		likePost,
-		verifiedAccount
+		verifiedAccount,
+		avatar
 	}) {
 	const Auth = useContext(AuthContext)
 	const homeContext = useContext(HomeContext)
@@ -43,14 +44,14 @@ export default function PostItem({
 		// }
 
 
-		if(like) {
-			console.log(true)
-			console.log(likePost)
-		} else {
-			console.log(false)
-			// likePost.push(Auth.state.userId) 
-			console.log(likePost)
-		}
+		// if(like) {
+		// 	console.log(true)
+		// 	console.log(likePost)
+		// } else {
+		// 	console.log(false)
+		// 	// likePost.push(Auth.state.userId) 
+		// 	console.log(likePost)
+		// }
 
 		// like
 		// ? 
@@ -74,7 +75,8 @@ export default function PostItem({
 					return [...v, {
 						userId: {
 							fullName: Auth.state.fullName,
-							verified: Auth.state.verified
+							verified: Auth.state.verified,
+							avatar: Auth.state.avatar
 						},
 						comment: result.data.commentItem.comment		
 					}]
@@ -86,13 +88,11 @@ export default function PostItem({
 		input.current.focus()
 	}
 
-	console.log(userId)
-
 	return (
 		<div className="post-item shadow-sm mb-3" data-id={dataId}>
 			<div className="post-item__header d-flex justify-content-between">
 				<div className="post-item__header-avatar">
-					<img src="/img/avatar.png" alt=""/>
+					<img src={avatar || '/img/avatar.png'} alt=""/>
 				</div>
 				<div className="post-item__header-info">
 					<div
@@ -177,34 +177,37 @@ export default function PostItem({
 						commentItem.map((v,i) => {
 							return (
 								<div key={i} className="comment-item d-flex">
-									<div className="comment-item__avatar">
-									<img src="/img/avatar.png" alt=""/>
-								</div>
-								<div className="comment-item__info text-start ms-2">
-									<div className='comment-item__info-top'>
-										<div className="comment-item__info-top-name pt-2 fw-bold d-flex align-items-center">
-											{v.userId.fullName}
-											{
-												v.userId.verified
-												?
-													<div 
-														className="comment-item__info-verify ms-2"
-														style={{backgroundImage: 'url("/img/active.png")'}}
-													>
-													</div>
-												:
-													<></>
-											}
+									<div 
+										className="comment-item__avatar"
+										style={{backgroundImage: `url(${v.userId.avatar == '' ? '/img/avatar.png' : v.userId.avatar})`}}
+									>
+										{/* <img src={v.userId.avatar == '' ? '/img/avatar.png' : v.userId.avatar} alt=""/> */}
+									</div>
+									<div className="comment-item__info text-start ms-2">
+										<div className='comment-item__info-top'>
+											<div className="comment-item__info-top-name pt-2 fw-bold d-flex align-items-center">
+												{v.userId.fullName}
+												{
+													v.userId.verified
+													?
+														<div 
+															className="comment-item__info-verify ms-2"
+															style={{backgroundImage: 'url("/img/active.png")'}}
+														>
+														</div>
+													:
+														<></>
+												}
+											</div>
+											<div className="comment-item__info-top-comment">
+												{v.comment}
+											</div>
 										</div>
-										<div className="comment-item__info-top-comment">
-											{v.comment}
+										<div className='comment-item__info-like'>
+											<span className='me-3 text-muted'>Thích</span>
+											<span className='text-muted'>Phản hồi</span>
 										</div>
 									</div>
-									<div className='comment-item__info-like'>
-										<span className='me-3 text-muted'>Thích</span>
-										<span className='text-muted'>Phản hồi</span>
-									</div>
-								</div>
 								</div>
 							)
 						})
@@ -212,7 +215,7 @@ export default function PostItem({
 				</div>
 				<div className="comment-box d-flex">
 					<div className="post-item__footer-avatar me-2">
-						<img src="/img/avatar.png" alt="" style={{width: '32px', height: '32px', borderRadius: '50%'}}/>
+						<img src={Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar } alt="" style={{width: '32px', height: '32px', borderRadius: '50%'}}/>
 					</div>
 					<div className="post-item__footer-input" style={{width: '100%'}}>
 						<form onSubmit={submitComment}>

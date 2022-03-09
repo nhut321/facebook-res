@@ -1,5 +1,5 @@
 import { useState,useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
 import './Login.css'
 import { baseUrl } from './baseUrl'
@@ -12,7 +12,6 @@ export default function Login() {
 		email: '',
 		password: ''
 	})
-
 	const [validator, setValidator] = useState(true)
 
 	const onSubmitForm = (e) => {
@@ -23,12 +22,12 @@ export default function Login() {
 		})
 		.then(res => {
 			if(res.data.success) {
-				navigate('/')
 				Auth.dispatch({
 						type: 'LOGIN', 
 						email: res.data.user.email
 						})
 				localStorage.setItem('token', res.data.token)
+				return navigate('/')
 			} else {
 				setValidator(false)
 			}
@@ -73,7 +72,12 @@ export default function Login() {
 						<a href="#" className='text-decoration-none'>Forget password</a>
 					</form>
 					<div className="register-btn pt-4">
-						<button className="btn btn-success">Register</button>
+						<Link 
+							to='/register' 
+							className="btn btn-success"
+						>
+							Register
+						</Link>
 					</div>
 				</div>	
 			</div>

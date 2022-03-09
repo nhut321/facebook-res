@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import PostBox from './PostBox'
 import PostItem from './PostItem'
 import PostModal from './PostModal'
@@ -18,10 +18,9 @@ export default function Home() {
 					{
 						modal.postItem.length <= 0 
 						?
-						<h4 className='text-muted mt-4'>Hiện đã hết bài đăng, hãy kết bạn để xem nhiều hơn</h4>
+						<h4 className='text-muted mt-4'>Hiện đã hết bài đăng, hãy theo dõi thêm mọi người để xem nhiều hơn</h4>
 						:
 						modal.postItem.map((v,i) => {
-							console.log(v)
 							return	<PostItem 
 										key={i} 
 										userId={v.userId._id} 
@@ -31,6 +30,7 @@ export default function Home() {
 										commentProps={[]}
 										likePost={v.like}
 										verifiedAccount={v.userId.verified}
+										avatar={v.userId.avatar}
 									/>
 						})
 					}

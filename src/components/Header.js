@@ -1,14 +1,26 @@
-import { useState,useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useState,useContext,useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
 import { HomeContext } from '../contexts/HomeContext'
 import './Header.css'
+import { baseUrl } from './baseUrl'
+import axios from 'axios'
 
 export default function Header() {
+	const navigate = useNavigate()
 	const Auth = useContext(AuthContext)
 	const toggle = useContext(HomeContext)
+	const [searchValue, setSearchValue] = useState('')
+	const [searchItem, setSearchItem] = useState([])
 	// const [toggleState, setToggleState] = useState(1)
 	const [userMenu, setUserMenu] = useState(true)
+
+	const searchInput = useRef()
+
+	const searchFn = () => {
+		// const input = document.createElement('input')
+		// search.current.appendChild(input)
+	}
 
 	const toggleFn = function(index) {
 		toggle.setToggleTabMenu(index)
@@ -17,13 +29,31 @@ export default function Header() {
 	const logOut = () => {
 		localStorage.removeItem('token')
 		Auth.dispatch({type: 'LOGOUT'})
+		navigate('/login')
 	}
 
 	const toggleUserMenu = () => {
 		setUserMenu(v => !v)
 	}
 
-	let name = Auth.state.fullName
+	let name = Auth.state.fname
+
+	const onSubmitSearch = e => {
+		// e.preventDefault()
+		// axios.get(baseUrl + '/search?name=' + searchValue)
+		// 	.then(res => console.log(res))
+	}
+
+	const onChangeSearch = (e) => {
+		setSearchValue(e.target.value)
+		if(searchValue !== '') {
+			axios.get(baseUrl + '/search?name=' + searchValue)
+			.then(res => {
+				 setSearchItem(res.data)
+				 console.log(searchItem)
+			})
+		}
+	}
 
 	return (
 		<div className="header d-flex justify-content-between shadow-sm">
@@ -33,8 +63,54 @@ export default function Header() {
 						<i className="fa-brands fa-facebook"></i>
 					</Link>
 				</div>
-				<div className='header-left__search'>
+				<div
+					className='header-left__search'
+					onClick={searchFn}
+				>
 					<img src='/img/search-interface-symbol.png' />
+					<form onSubmit={onSubmitSearch}>
+						<input
+							value={searchValue} 
+							ref={searchInput} 
+							name='search'
+							type="text"
+							placeholder='Search...'
+							onChange={onChangeSearch}
+						/>
+					</form>
+					<div className="header-left__search-lists text-start">
+						{
+							searchValue === ''
+							?
+								<></>
+							:
+							searchItem.map((v,i) => {
+								// console.log(v.fullName)
+								return (
+									<div key={i} className="header-left__search-item">
+										<a href={`/user/user-id?id=${v._id}`}>
+											<img 
+												src="/img/avatar.png" 
+												alt="" 
+												className='m-2'
+											/>
+											{v.fullName}
+										</a>
+									</div>
+								)
+							})
+						}
+
+						{/* <div className="header-left__search-item"> */}
+						{/* 	<img  */}
+						{/* 		src="/img/avatar.png"  */}
+						{/* 		alt=""  */}
+						{/* 		className='m-2' */}
+						{/* 	/> */}
+						{/* 	Nhut Cumen */}
+						{/* </div> */}
+
+					</div>
 				</div>
 			</div>
 			<div className="header-center">
@@ -86,7 +162,7 @@ export default function Header() {
 					className="header-right__user me-2 d-flex"
 				>
 					<Link className='text-dark text-decoration-none' to="/me">
-						<img src="/img/avatar.png" alt=""/>
+						<img src={Auth.state.avatar || '/img/avatar.png'} alt=""/>
 						<span className='p-1'>
 							<strong>
 								{
@@ -117,11 +193,11 @@ export default function Header() {
 							<li className="down-btn__dropdown-item d-flex align-items-center">
 								
 								<div className="dropdown-item-left avatar">
-									<img src="/img/avatar.png" alt=""/>
+									<img src={Auth.state.avatar || '/img/avatar.png'} alt=""/>
 								</div>
 								<div className="dropdown-item-right d-flex flex-column">
 									<Link to='/me'>
-										<span className='fs-5'>{Auth.state.fullName}</span>
+										<span className='fs-5 fw-bold'>{Auth.state.fullName}</span>
 										<span className='text-muted'>Xem trang cá nhân của bạn</span>
 									</Link>
 								</div>
