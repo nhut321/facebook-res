@@ -78,8 +78,40 @@
 }
 
 .home-sidebar, 
-.home-left {
+.home-right {
 	flex: 1;
+}
+
+.home-right__body-item {
+	position: relative;
+}
+
+.home-right__body-item img {
+	text-align: left;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	margin-right: 0.5rem;
+}
+
+.home-right__body-item .online {
+  position: absolute;
+  left: 4px;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #0bc71e;
+  border: 1px solid var(--background-color);
+  border-radius: 50%;
+}
+
+.home-right__body-item .offline {
+  position: absolute;
+  left: 4px;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #bbc5bc;
+  border: 1px solid var(--background-color);
+  border-radius: 50%;
 }
 
 /*Post Item*/

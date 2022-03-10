@@ -22,7 +22,7 @@ export default function Profile({Auth}) {
 	useEffect(() => {
 		axios.get(baseUrl + '/user/' + (Auth.userId || Auth.state.userId ))
 			.then(res => {
-				// console.log(res.data)
+				console.log(res.data)
 				if (res.data.user.follower.includes(authContext.state.userId)) {
 					setFollow(true)
 				}
@@ -43,6 +43,8 @@ export default function Profile({Auth}) {
 			return [...v, authContext.state.userId]
 		})
 	}
+
+	console.log(homeContext.friendList)
 
 	const unFollowFn = () => {
 		setFollow(v => !v)

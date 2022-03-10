@@ -10,13 +10,12 @@ import { baseUrl } from '../components/baseUrl'
 import { postReducer } from '../store/postReducer'
 import { postInit } from '../store/initState'
 import axios from 'axios'
-import io from 'socket.io-client'
 
 export const HomeContext = createContext()
-const socket=io('http://localhost:8080')
 
 export default function HomeContextProvider({children}) {
 	const Auth = useContext(AuthContext)
+	const [friendList, setFriendList] = useState([])
 	const [toggleTabMenu, setToggleTabMenu] = useState(1)
 	const [comment, setComment] = useState('')
 	const [state, dispatch] = useReducer(postReducer, postInit)
@@ -29,8 +28,12 @@ export default function HomeContextProvider({children}) {
 
 	useEffect(() => {
 		axios.get(baseUrl + '/user/' + Auth.state.userId)
-			.then(res => console.log(res.data))	
-	})
+			.then(res => {
+				res.data.friends.map(friend => {
+					setFriendList(item => [...item,friend])
+				})
+			})	
+	},[])
 	// console.log(Auth.state)
 
 
@@ -93,7 +96,9 @@ export default function HomeContextProvider({children}) {
 		state,
 		dispatch,
 		toggleTabMenu,
-		setToggleTabMenu
+		setToggleTabMenu,
+		friendList,
+		setFriendList
 	}
 
 	return (
