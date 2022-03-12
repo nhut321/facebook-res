@@ -32,7 +32,6 @@ function HomeContextProvider({children}) {
 	useEffect(() => {
 		 axios.get(baseUrl + '/user/' + Auth.state.userId)
 			.then(res => {
-				console.log(res.data)
 				res.data.friends.map(friend => {
 					setFriendList(item => [...item,friend])
 				})
@@ -42,12 +41,13 @@ function HomeContextProvider({children}) {
 	
 
 	useEffect(() => {
-	    socket.emit('online', Auth.state.userId)
+		console.log(socket.id)
+	    socket.emit('online', Auth.state.fname, socket.id)
 	    socket.on('server-req-online', data => {
-	      // console.log(data)
-	      setUserOnline(v => [...v,data.user]) 
+	      setUserOnline(v => {
+	      	return	[...v,data.user]
+	      })
 	    })
-	    console.log(userOnline)
 	    // socket.on('user-disconect', data => {
 	    // 	
 	    // })

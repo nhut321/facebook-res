@@ -28,7 +28,9 @@ function OtherUser() {
 						friends: res.data.user.friends,
 						fullName: res.data.user.fullName,
 						verified: res.data.user.verified,
-						avatar: res.data.user.avatar
+						avatar: res.data.user.avatar,
+						fname: res.data.user.fname,
+						lname: res.data.user.lname,
 					})
 				}
 			})
@@ -41,9 +43,11 @@ function OtherUser() {
 			Auth={{
 				state: {
 					fullName: profileUser.fullName,
+					fname: profileUser.fname,
+					lname: profileUser.lname,
 					verified: profileUser.verified,
 					userId: userIdParams,
-					avatar: profileUser.avatar
+					avatar: profileUser.avatar,
 				}
 			}}
 		/>

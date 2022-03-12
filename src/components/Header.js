@@ -37,7 +37,13 @@ function Header() {
 
 	useEffect(() => {
 		socket.on('follow-noti-to-client', data => {
-			console.log(data)
+			setNoti(item => {
+				const result = [...item, {
+					username: data
+				}]
+				return result
+			})
+			console.log(data + ' da theo doi ban')
 		})
 	},[])
 
@@ -209,12 +215,13 @@ function Header() {
 							<div className="notifi-lists shadow">
 								{
 									noti.map(v => {
-										return (
-											<div className="notifi-item">
-												<img src="/img/avatar.png" alt=""/>
-												<span>Someone</span><span>da follow ban</span>
-											</div>
-										)
+										console.log(v)
+										 return (
+										 	<div className="notifi-item">
+										 		<img src="/img/avatar.png" alt=""/>
+										 		<span>{`${v.username}: `}</span><span>Đã theo dõi bạn</span>
+										 	</div>
+										 )
 									})
 								}
 							</div>

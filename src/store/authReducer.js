@@ -13,6 +13,8 @@ function authReducer(state,action) {
 			}
 		case 'LOGOUT':
 			return {...state, isLogin: false, email: ''}
+		case 'USER_ONLINE':
+			return {...state, socketId: action.socketId}
 		default:
 			return state
 	}

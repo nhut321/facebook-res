@@ -44,10 +44,16 @@ export default function Profile({Auth}) {
 		setFollower(v => {
 			return [...v, authContext.state.userId]
 		})
-		socket.emit('follow-noti', {
-			currentUser: authContext.state.userId,
-			targetUser: Auth.state.userId 
-		})
+
+
+	    socket.emit('online', Auth.state.fname, socket.id)
+	    console.log(Auth.state.fname)
+	    socket.on('server-req-online', data => {
+	    	console.log(data)
+	     	authContext.dispatch({type: 'USER_ONLINE', socketId: socket.id})
+	 	})
+
+		socket.emit('follow-noti', Auth.state.fname, authContext.state.fname)
 	}
 
 	const unFollowFn = () => {
