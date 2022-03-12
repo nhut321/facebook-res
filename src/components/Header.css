@@ -144,6 +144,32 @@
     cursor: pointer;
 }
 
+.header-right__options-item.notifi {
+    position: relative;
+}
+
+.notifi-lists {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-height: 4rem;
+    background-color: white;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.notifi-item {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    text-align: left;
+}
+
+.notifi-item img {
+    widht: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+
 .header-right__options-item:hover {
     background-color: #e2e3e3;
 }

@@ -1,12 +1,19 @@
-import { useState,useContext,useRef } from 'react'
+import { 
+	useState,
+	useContext,
+	useRef,
+	memo,
+	useEffect
+} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthContext'
 import { HomeContext } from '../contexts/HomeContext'
 import './Header.css'
 import { baseUrl } from './baseUrl'
 import axios from 'axios'
+import { socket } from './socket'
 
-export default function Header() {
+function Header() {
 	const navigate = useNavigate()
 	const Auth = useContext(AuthContext)
 	const toggle = useContext(HomeContext)
@@ -14,6 +21,8 @@ export default function Header() {
 	const [searchItem, setSearchItem] = useState([])
 	// const [toggleState, setToggleState] = useState(1)
 	const [userMenu, setUserMenu] = useState(true)
+	const [toggleNoti, setToggleNoti] = useState(false)
+	const [noti, setNoti] = useState([])
 
 	const searchInput = useRef()
 
@@ -26,6 +35,12 @@ export default function Header() {
 		toggle.setToggleTabMenu(index)
 	}
 
+	useEffect(() => {
+		socket.on('follow-noti-to-client', data => {
+			console.log(data)
+		})
+	},[])
+
 	const logOut = () => {
 		localStorage.removeItem('token')
 		Auth.dispatch({type: 'LOGOUT'})
@@ -34,6 +49,10 @@ export default function Header() {
 
 	const toggleUserMenu = () => {
 		setUserMenu(v => !v)
+	}
+
+	const toggleNotiFn = () => {
+		setToggleNoti(v => !v)
 	}
 
 	let name = Auth.state.fname
@@ -179,8 +198,29 @@ export default function Header() {
 					<div className="header-right__options-item messenger">
 						<img src='/img/messenger.png' />
 					</div>
-					<div className="header-right__options-item notifi">
+					<div 
+						className="header-right__options-item notifi"
+						onClick={toggleNotiFn}
+					>
 						<img src='/img/notification.png' />
+						{
+							toggleNoti 
+							?
+							<div className="notifi-lists shadow">
+								{
+									noti.map(v => {
+										return (
+											<div className="notifi-item">
+												<img src="/img/avatar.png" alt=""/>
+												<span>Someone</span><span>da follow ban</span>
+											</div>
+										)
+									})
+								}
+							</div>
+							:
+							<></> 
+						}
 					</div>
 					<div 
 						className="header-right__options-item down-btn"
@@ -245,3 +285,5 @@ export default function Header() {
 		</div>
 	)
 }
+
+export default memo(Header)

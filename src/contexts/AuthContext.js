@@ -14,6 +14,8 @@ function AuthContextProvider({children}) {
 	// })
 	const [state,dispatch] = useReducer(authReducer, authInit)
 
+	
+
 	useEffect(() => {
 		axios.get(baseUrl, {
 			headers: {
@@ -21,7 +23,6 @@ function AuthContextProvider({children}) {
 			}
 		}).then(res => {
 			if (res.data.success) {
-				console.log(res.data)
 				dispatch({
 					type: 'LOGIN',
 					fullName: res.data.user.fullName,

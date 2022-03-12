@@ -1,4 +1,4 @@
-import { useContext,useState } from 'react'
+import { useContext,useState, useEffect, memo } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AuthContext } from './contexts/AuthContext'
 import HomeContextProvider from './contexts/HomeContext'
@@ -12,8 +12,11 @@ import PostItemDetail from './components/contents/Home/PostItemDetail'
 import './App.css';
 
 function App() {
+  const [useOnline, setUserOnline] = useState([])
   const Auth = useContext(AuthContext)
   const [switchLogin, setSwitchLogin] = useState(false)
+
+
   return (
     <div className="App">
       {
@@ -50,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default memo(App);

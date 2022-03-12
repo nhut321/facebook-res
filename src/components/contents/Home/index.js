@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, memo } from 'react'
 import PostBox from './PostBox'
 import PostItem from './PostItem'
 import PostModal from './PostModal'
@@ -7,7 +7,7 @@ import HomeLeft from './HomeLeft'
 import { HomeContext } from '../../../contexts/HomeContext'
 import './Home.css'
 
-export default function Home() {
+function Home() {
 	const modal = useContext(HomeContext)
 	return (
 		<div className="home d-flex">
@@ -48,3 +48,5 @@ export default function Home() {
 		</div>
 	)
 }
+
+export default memo(Home)

@@ -3,17 +3,19 @@ import {
 	useState,
 	useEffect,
 	useReducer,
-	useContext 
+	useContext,
+	memo
 } from 'react'
 import { AuthContext } from './AuthContext'
 import { baseUrl } from '../components/baseUrl'
 import { postReducer } from '../store/postReducer'
 import { postInit } from '../store/initState'
 import axios from 'axios'
+import { socket } from '../components/socket'
 
 export const HomeContext = createContext()
 
-export default function HomeContextProvider({children}) {
+function HomeContextProvider({children}) {
 	const Auth = useContext(AuthContext)
 	const [friendList, setFriendList] = useState([])
 	const [toggleTabMenu, setToggleTabMenu] = useState(1)
@@ -21,20 +23,38 @@ export default function HomeContextProvider({children}) {
 	const [state, dispatch] = useReducer(postReducer, postInit)
 	const [postItem, setPostItem] = useState([])
 	const [postModal, setPostModal] = useState(false)
+	const [userOnline, setUserOnline] = useState([])
 	
 	const togglePostModal = () => {
 		setPostModal(v => !v)
 	}
 
 	useEffect(() => {
-		axios.get(baseUrl + '/user/' + Auth.state.userId)
+		 axios.get(baseUrl + '/user/' + Auth.state.userId)
 			.then(res => {
+				console.log(res.data)
 				res.data.friends.map(friend => {
 					setFriendList(item => [...item,friend])
 				})
-			})	
+			})
+			.catch(err => console.log(err))
 	},[])
-	// console.log(Auth.state)
+	
+
+	useEffect(() => {
+	    socket.emit('online', Auth.state.userId)
+	    socket.on('server-req-online', data => {
+	      // console.log(data)
+	      setUserOnline(v => [...v,data.user]) 
+	    })
+	    console.log(userOnline)
+	    // socket.on('user-disconect', data => {
+	    // 	
+	    // })
+	    return () => {
+	      setUserOnline([])
+	    }
+	},[])
 
 
 	useEffect(() => {
@@ -76,7 +96,6 @@ export default function HomeContextProvider({children}) {
 							 _id: result.data.data._id,
 							 like: result.data.data.like
 							}]
-							console.log(result.data)
 							return data
 						})
 						setPostModal(false)
@@ -98,7 +117,8 @@ export default function HomeContextProvider({children}) {
 		toggleTabMenu,
 		setToggleTabMenu,
 		friendList,
-		setFriendList
+		setFriendList,
+		userOnline
 	}
 
 	return (
@@ -107,3 +127,5 @@ export default function HomeContextProvider({children}) {
 		</HomeContext.Provider>
 	)
 }
+
+export default memo(HomeContextProvider)

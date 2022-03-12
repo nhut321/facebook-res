@@ -7,6 +7,7 @@ import About from './About'
 import Friends from './Friends'
 import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
+import { socket } from '../../socket'
 
 export default function Profile({Auth}) {
 	const authContext = useContext(AuthContext)
@@ -22,7 +23,6 @@ export default function Profile({Auth}) {
 	useEffect(() => {
 		axios.get(baseUrl + '/user/' + (Auth.userId || Auth.state.userId ))
 			.then(res => {
-				console.log(res.data)
 				if (res.data.user.follower.includes(authContext.state.userId)) {
 					setFollow(true)
 				}
@@ -34,6 +34,8 @@ export default function Profile({Auth}) {
         	}
 	},[])
 
+	console.log(Auth.state)
+
 	const followFn = () => {
 		setFollow(v => !v)
 		axios.put(baseUrl + '/user/' + Auth.state.userId + '/follow', {
@@ -42,9 +44,11 @@ export default function Profile({Auth}) {
 		setFollower(v => {
 			return [...v, authContext.state.userId]
 		})
+		socket.emit('follow-noti', {
+			currentUser: authContext.state.userId,
+			targetUser: Auth.state.userId 
+		})
 	}
-
-	console.log(homeContext.friendList)
 
 	const unFollowFn = () => {
 		setFollow(v => !v)
