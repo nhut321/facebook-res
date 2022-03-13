@@ -24,32 +24,41 @@ function HomeContextProvider({children}) {
 	const [postItem, setPostItem] = useState([])
 	const [postModal, setPostModal] = useState(false)
 	const [userOnline, setUserOnline] = useState([])
+	const [notification, setNotification] = useState([])
+	const [viewNoti, setViewNoti] = useState(() => {
+		return localStorage.getItem('noti-view') ?? false
+	})
 	
 	const togglePostModal = () => {
 		setPostModal(v => !v)
 	}
 
 	useEffect(() => {
-		 axios.get(baseUrl + '/user/' + Auth.state.userId)
+		const getUser = async () => {
+			const result = await axios.get(baseUrl + '/user/' + Auth.state.userId)
 			.then(res => {
+				res.data.user.notification.map(noti => {
+					setNotification(item => [...item, noti])
+					setViewNoti(false)
+				})
 				res.data.friends.map(friend => {
 					setFriendList(item => [...item,friend])
 				})
 			})
 			.catch(err => console.log(err))
-	},[])
+
+		}
+		getUser()
+	},[setNotification])
 	
 
 	useEffect(() => {
-		console.log(socket.id)
-	    socket.emit('online', Auth.state.fname)
-	    socket.on('server-req-online', data => {
-	    	console.log(data)
+	    socket.emit('online', Auth.state.userId)
+	    socket.on('server-req-online', (username) => {
+	    	console.log(username)
+	 		setUserOnline(v => [...v, username])
 	 	})
-
-	    // socket.on('user-disconect', data => {
-	    // 	
-	    // })
+	 	socket.on('follow-res', data => console.log(data))
 	    return () => {
 	      setUserOnline([])
 	    }
@@ -117,7 +126,10 @@ function HomeContextProvider({children}) {
 		setToggleTabMenu,
 		friendList,
 		setFriendList,
-		userOnline
+		userOnline,
+		notification,
+		viewNoti,
+		setViewNoti
 	}
 
 	return (

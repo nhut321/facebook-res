@@ -35,18 +35,6 @@ function Header() {
 		toggle.setToggleTabMenu(index)
 	}
 
-	useEffect(() => {
-		socket.on('follow-noti-to-client', data => {
-			setNoti(item => {
-				const result = [...item, {
-					username: data
-				}]
-				return result
-			})
-			console.log(data + ' da theo doi ban')
-		})
-	},[])
-
 	const logOut = () => {
 		localStorage.removeItem('token')
 		Auth.dispatch({type: 'LOGOUT'})
@@ -59,6 +47,11 @@ function Header() {
 
 	const toggleNotiFn = () => {
 		setToggleNoti(v => !v)
+		toggle.setViewNoti(value => {
+			const result = true
+			localStorage.setItem('noti-view', result)
+			return result
+		})
 	}
 
 	let name = Auth.state.fname
@@ -75,7 +68,6 @@ function Header() {
 			axios.get(baseUrl + '/search?name=' + searchValue)
 			.then(res => {
 				 setSearchItem(res.data)
-				 console.log(searchItem)
 			})
 		}
 	}
@@ -110,7 +102,6 @@ function Header() {
 								<></>
 							:
 							searchItem.map((v,i) => {
-								// console.log(v.fullName)
 								return (
 									<div key={i} className="header-left__search-item">
 										<a href={`/user/user-id?id=${v._id}`}>
@@ -208,17 +199,26 @@ function Header() {
 						className="header-right__options-item notifi"
 						onClick={toggleNotiFn}
 					>
+						{
+							toggle.viewNoti 
+							?
+							<></> 
+							:
+							<div className="notifi_count">
+								!
+							</div>
+						}
 						<img src='/img/notification.png' />
 						{
 							toggleNoti 
 							?
-							<div className="notifi-lists shadow">
+							<div className="notifi-lists d-flex flex-column-reverse shadow">
 								{
-									noti.map((v,i) => {
+									toggle.notification.map((v,i) => {
 										 return (
 										 	<div key={i} className="notifi-item">
 										 		<img src="/img/avatar.png" alt=""/>
-										 		<span>{`${v.username}: `}</span><span>Đã theo dõi bạn</span>
+										 		<span>{`${v.username}: `}</span><span>{v.message}</span>
 										 	</div>
 										 )
 									})

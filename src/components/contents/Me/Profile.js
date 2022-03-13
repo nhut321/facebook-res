@@ -39,12 +39,13 @@ export default function Profile({Auth}) {
 		setFollow(v => !v)
 		axios.put(baseUrl + '/user/' + Auth.state.userId + '/follow', {
 			currentId: authContext.state.userId
-		}).then(res => console.log(res.data))
+		}).then(res => {
+		})
+		console.log(authContext.state.userId)
+		socket.emit('follow-user', Auth.state.userId)
 		setFollower(v => {
 			return [...v, authContext.state.userId]
 		})
-		socket.emit('follow-noti', Auth.state.fname, authContext.state.fname)
-		console.log(Auth.state.fname)
 	}
 
 	const unFollowFn = () => {

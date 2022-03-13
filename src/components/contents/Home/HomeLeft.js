@@ -4,7 +4,6 @@ import { AuthContext } from '../../../contexts/AuthContext'
 
 export default function HomeRight() {
 	const homeContext = useContext(HomeContext)
-	// const Auth = useContext(AuthContext)
 
 	return (
 		<div className="home-right">
