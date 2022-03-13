@@ -42,12 +42,11 @@ function HomeContextProvider({children}) {
 
 	useEffect(() => {
 		console.log(socket.id)
-	    socket.emit('online', Auth.state.fname, socket.id)
+	    socket.emit('online', Auth.state.fname)
 	    socket.on('server-req-online', data => {
-	      setUserOnline(v => {
-	      	return	[...v,data.user]
-	      })
-	    })
+	    	console.log(data)
+	 	})
+
 	    // socket.on('user-disconect', data => {
 	    // 	
 	    // })

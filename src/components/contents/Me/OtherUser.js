@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import Profile from './Profile'
 import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
+import { socket } from '../../socket'
 
 
 function OtherUser() {
@@ -34,6 +35,7 @@ function OtherUser() {
 					})
 				}
 			})
+
 	},[])
 
 	return(

@@ -20,6 +20,7 @@ export default function Profile({Auth}) {
 		following: []
 	})
 	const [friends, setFriends] = useState([])
+
 	useEffect(() => {
 		axios.get(baseUrl + '/user/' + (Auth.userId || Auth.state.userId ))
 			.then(res => {
@@ -34,8 +35,6 @@ export default function Profile({Auth}) {
         	}
 	},[])
 
-	console.log(Auth.state)
-
 	const followFn = () => {
 		setFollow(v => !v)
 		axios.put(baseUrl + '/user/' + Auth.state.userId + '/follow', {
@@ -44,16 +43,8 @@ export default function Profile({Auth}) {
 		setFollower(v => {
 			return [...v, authContext.state.userId]
 		})
-
-
-	    socket.emit('online', Auth.state.fname, socket.id)
-	    console.log(Auth.state.fname)
-	    socket.on('server-req-online', data => {
-	    	console.log(data)
-	     	authContext.dispatch({type: 'USER_ONLINE', socketId: socket.id})
-	 	})
-
 		socket.emit('follow-noti', Auth.state.fname, authContext.state.fname)
+		console.log(Auth.state.fname)
 	}
 
 	const unFollowFn = () => {

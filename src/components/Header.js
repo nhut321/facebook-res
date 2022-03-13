@@ -214,10 +214,9 @@ function Header() {
 							?
 							<div className="notifi-lists shadow">
 								{
-									noti.map(v => {
-										console.log(v)
+									noti.map((v,i) => {
 										 return (
-										 	<div className="notifi-item">
+										 	<div key={i} className="notifi-item">
 										 		<img src="/img/avatar.png" alt=""/>
 										 		<span>{`${v.username}: `}</span><span>Đã theo dõi bạn</span>
 										 	</div>

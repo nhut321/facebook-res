@@ -33,7 +33,6 @@ function AuthContextProvider({children}) {
 					fname: res.data.user.fname,
 					lname: res.data.user.lname,
 				})
-
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 			} else {
 				axios.defaults.headers.common['Authorization'] = ''
@@ -43,6 +42,8 @@ function AuthContextProvider({children}) {
 
 		})
 	},[state.isLogin])
+
+	console.log(state.fname)
 
 
 	const data = {
