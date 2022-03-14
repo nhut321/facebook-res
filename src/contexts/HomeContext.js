@@ -39,7 +39,11 @@ function HomeContextProvider({children}) {
 			.then(res => {
 				res.data.user.notification.map(noti => {
 					setNotification(item => [...item, noti])
-					setViewNoti(false)
+					console.log(notification.length !== res.data.user.notification.length)
+					if(notification.length !== res.data.user.notification.length) {
+						setViewNoti(false)
+					}
+					// setViewNoti(false)
 				})
 				res.data.friends.map(friend => {
 					setFriendList(item => [...item,friend])
@@ -50,19 +54,22 @@ function HomeContextProvider({children}) {
 		}
 		getUser()
 	},[setNotification])
-	
 
 	useEffect(() => {
-	    socket.emit('online', Auth.state.userId)
+	    socket.emit('online', Auth.state.userId, Auth.state.fullName)
 	    socket.on('server-req-online', (username) => {
-	    	console.log(username)
-	 		setUserOnline(v => [...v, username])
+	    	username.map(item => {
+		 		setUserOnline(v => {
+		 			return  [...v, item]
+		 		})
+	    	})
 	 	})
-	 	socket.on('follow-res', data => console.log(data))
+	 	socket.on('follow-res', data => setViewNoti(false))
 	    return () => {
 	      setUserOnline([])
 	    }
-	},[])
+	    socket.on('disconnect', socket.id)
+	},[setUserOnline])
 
 
 	useEffect(() => {

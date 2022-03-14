@@ -8,7 +8,7 @@ export default function HomeRight() {
 	return (
 		<div className="home-right">
 			<div className="home-right__header border-bottom">
-				<h6>Người mà bạn đã theo dõi</h6>
+				<h6>Người mà bạn đang theo dõi</h6>
 			</div>
 			<div className="home-right__body">
 				<div className="home-right__body-lists text-start">
@@ -19,7 +19,7 @@ export default function HomeRight() {
 								<div key={i} className="home-right__body-item p-2">
 									{
 
-										homeContext.userOnline.includes(v.id) ? <div className="online"></div> : <div className="offline"></div>
+										homeContext.userOnline.some(item => item.username == v.id) ? <div className="online"></div> : <div className="offline"></div>
 									}
 									<img src="/img/avatar.png" alt=""/>
 									<span className='fw-bold'>{v.fname + ' '}</span>

@@ -41,7 +41,6 @@ export default function Profile({Auth}) {
 			currentId: authContext.state.userId
 		}).then(res => {
 		})
-		console.log(authContext.state.userId)
 		socket.emit('follow-user', Auth.state.userId)
 		setFollower(v => {
 			return [...v, authContext.state.userId]

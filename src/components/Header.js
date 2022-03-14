@@ -193,7 +193,9 @@ function Header() {
 						<img src='/img/dots-menu.png' />
 					</div>
 					<div className="header-right__options-item messenger">
-						<img src='/img/messenger.png' />
+						<Link to="/messages">
+							<img src='/img/messenger.png' />
+						</Link>
 					</div>
 					<div 
 						className="header-right__options-item notifi"

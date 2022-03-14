@@ -3,7 +3,7 @@ import PostBox from './PostBox'
 import PostItem from './PostItem'
 import PostModal from './PostModal'
 import HomeSidebar from './HomeSidebar'
-import HomeLeft from './HomeLeft'
+import HomeRight from './HomeRight'
 import { HomeContext } from '../../../contexts/HomeContext'
 import './Home.css'
 
@@ -44,7 +44,7 @@ function Home() {
 				:
 				<></>
 			}
-			<HomeLeft />
+			<HomeRight />
 		</div>
 	)
 }

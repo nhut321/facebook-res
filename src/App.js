@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import Register from './components/Register'
 import Home from './components/contents/Home'
+import Chat from './components/contents/Chat'
 import Me from './components/contents/Me'
 import OtherUser from './components/contents/Me/OtherUser'
 import PostItemDetail from './components/contents/Home/PostItemDetail'
@@ -27,6 +28,7 @@ function App() {
             <div style={{marginTop: '70px'}}>
               <Routes>
                 <Route path='/' element={<Home />}/>
+                <Route path='/messages' element={<Chat />}/>
                 <Route path='/posts/detail/:id' element={<PostItemDetail />}/>
                 <Route path='/user/:user-id/*' element={<OtherUser />}/>
                 <Route path='/me/*' element={<Me />}/>

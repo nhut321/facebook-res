@@ -195,7 +195,11 @@
     width: 10px;    
 }
 
-.header-right__options-item > img {
+.header-right__options-item.messenger > a > img {
+    width: 20px;
+}
+
+.header-right__options-item img {
     width: 20px;
 }
 

@@ -82,6 +82,23 @@
 	flex: 1;
 }
 
+.home-sidebar__lists {
+	text-align: left;
+}
+
+.home-sidebar__item {
+	padding: 0.75rem;
+}
+
+.home-sidebar__item > a {
+	display: block;
+}
+
+.home-sidebar__item > a > img {
+	width: 28px;
+	height: 28px;
+}
+
 .home-right__body-item {
 	position: relative;
 }
