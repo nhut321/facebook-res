@@ -43,8 +43,6 @@ function AuthContextProvider({children}) {
 		})
 	},[state.isLogin])
 
-	console.log(state.fname)
-
 
 	const data = {
 		state,

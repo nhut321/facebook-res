@@ -46,10 +46,11 @@ function HomeContextProvider({children}) {
 					// setViewNoti(false)
 				})
 				res.data.friends.map(friend => {
+					console.log(res.data)
 					setFriendList(item => [...item,friend])
 				})
 			})
-			.catch(err => console.log(err))
+			.catch(err => console.log(err)) 
 
 		}
 		getUser()
