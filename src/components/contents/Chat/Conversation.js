@@ -3,14 +3,15 @@ import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
 
 
-export default function Conversation({item, currentId, homeContext}) {
+export default function Conversation({value, currentId, homeContext, selectConversation}) {
 	const [user, setUser] = useState({})
 
 	useEffect(() => {
-		const friendId = item.member.find(user => user !== currentId)
+		const friendId = value.member.find(user => user !== currentId)
 		const getFriendId = async () => {
 			try {
 				const res = await axios.get(baseUrl + '/user/' + friendId)
+				console.log(res.data)
 				setUser(res.data.user)
 			} catch(err) {
 				console.log(err)
@@ -19,11 +20,16 @@ export default function Conversation({item, currentId, homeContext}) {
 		getFriendId()
 	},[])
 
+	// const getChatFn = async (id) => {
+	// 	const result = await axios.get(baseUrl + '/chat/' + id)
+	// 	console.log(result.data.message)
+	// }
+
 	return (
 			<div 
-				// userid={user._id} 
+				conversation-id={value._id} 
 				className="messages-left__content-item d-flex justify-content-between align-items-center"
-				// onClick={() => selectUserFn(v.id)}
+				onClick={() => selectConversation(value._id,user)}
 			>
 				<img className='me-3' src="/img/avatar.png" alt=""/>
 				<div className="content-item__info text-start">

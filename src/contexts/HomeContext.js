@@ -70,6 +70,7 @@ function HomeContextProvider({children}) {
 	      setUserOnline([])
 	    }
 	    socket.on('disconnect', socket.id)
+	 	socket.on('message-res', data => console.log(data))
 	},[setUserOnline])
 
 
