@@ -21,7 +21,6 @@ export default function Chat() {
 	useEffect(() => {
 		const fetchData = async () => {
 			const result = await axios.get(baseUrl + '/conversations/' + Auth.state.userId)
-			console.log(result.data.conversation)
 			setConversation(value => {
 				const res = result.data.conversation
 				return res

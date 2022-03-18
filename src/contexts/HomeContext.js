@@ -121,6 +121,10 @@ function HomeContextProvider({children}) {
 		}
 	}
 
+	// useEffect(() => {
+	// 	socket.disconnect()
+	// },[])
+
 	const data = {
 		postModal,
 		postItem,
