@@ -12,7 +12,7 @@
 
 .login-slogan img {
 	position: relative;
-	left: -30px;
+	left: 0;
 	width: 300px;
 }
 
@@ -34,18 +34,18 @@
 	border-radius: 8px;
 }
 
-.login-form-box>form>.form-input {
+.login-form-box form .form-input {
 	padding: 14px 16px;
 	border: 1px solid #dddfe2;
 	/*border: 1px solid red;*/
 	border-radius: 5px;
 }
 
-.login-form-box>form>.form-input.wrong {
+.login-form-box form .form-input.wrong {
 	border: 1px solid red;
 }
 
-.login-form-box>form>.form-input:focus {
+.login-form-box form .form-input:focus {
 	outline: none;
 	border: 1px solid #1877f2;
 }
