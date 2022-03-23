@@ -14,10 +14,12 @@
 }
 
 .header-center {
-    
+    width: 480px;
 }
 
 .header-right {
+    display: flex;
+    align-items: center;
     flex: 1
 }
 
@@ -286,4 +288,27 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
+}
+
+.header-mobile {
+    background-color: white;
+}
+
+/*Mobile*/
+@media screen and (max-width: 46.25em) {
+    .header {
+        flex-direction: column;
+        /*height: 10.625em;*/
+    }
+    .header-left__search {
+        justify-content: start
+    }
+    .header-center,
+    .header-right {
+        display: none;
+    }
+    .home-sidebar,
+    .home-right {
+        display: none;
+    }
 }

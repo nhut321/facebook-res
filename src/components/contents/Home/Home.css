@@ -353,3 +353,20 @@
 	background-color: #c1c1c173;
 	z-index: 5;
 }
+
+
+/*Mobile*/
+@media screen and (max-width: 46.25em) { 
+	.home {
+		margin-top: 85px;
+	}
+	.post-box {
+		width: 100%;
+	}
+	.post-lists {
+		width: 100%;
+	}
+	.post-item {
+		min-width: 100%;
+	}
+}

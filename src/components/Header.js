@@ -6,6 +6,7 @@ import {
 	useEffect
 } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
 import { AuthContext } from '../contexts/AuthContext'
 import { HomeContext } from '../contexts/HomeContext'
 import './Header.css'
@@ -14,6 +15,9 @@ import axios from 'axios'
 import { socket } from './socket'
 
 function Header() {
+	const isMobile = useMediaQuery({
+		query: '(max-width: 46.25em)' 
+	})
 	const navigate = useNavigate()
 	const Auth = useContext(AuthContext)
 	const toggle = useContext(HomeContext)
@@ -117,18 +121,11 @@ function Header() {
 							})
 						}
 
-						{/* <div className="header-left__search-item"> */}
-						{/* 	<img  */}
-						{/* 		src="/img/avatar.png"  */}
-						{/* 		alt=""  */}
-						{/* 		className='m-2' */}
-						{/* 	/> */}
-						{/* 	Nhut Cumen */}
-						{/* </div> */}
-
 					</div>
 				</div>
+
 			</div>
+			{isMobile ? <HeaderMobile /> : <></>}
 			<div className="header-center">
 				<ul className="header-center__tab-ui d-flex align-items-center">
 					<li 
@@ -155,25 +152,9 @@ function Header() {
 							<img src="/img/play.png" alt="" />
 						</a>
 					</li>
-					<li 
-						className={toggle.toggleTabMenu === 4 ? 'tab-ui__item active' : 'tab-ui__item'}
-						onClick={() => toggleFn(4)}
-					>
-						<a href='#'>
-							<img src="/img/online-shopping.png" alt="" />
-						</a>
-					</li>
-					<li 
-						className={toggle.toggleTabMenu === 5 ? 'tab-ui__item active' : 'tab-ui__item'}
-						onClick={() => toggleFn(5)}
-					>
-						<a href='#' >
-							<img src={toggle.toggleTabMenu === 5 ? '/img/multiple-users-silhouette.png' : '/img/people.png'} alt="" />
-						</a>
-					</li>
 				</ul>
 			</div>
-			<div className="header-right d-flex align-items-center">
+			<div className="header-right">
 				<div 
 					className="header-right__user me-2 d-flex"
 				>
@@ -288,6 +269,25 @@ function Header() {
 							</li>
 						</ul>
 					</div>
+				</div>
+			</div>
+		</div>
+	)
+}
+
+function HeaderMobile() {
+	return (
+		<div className="header-mobile">
+			<div className="header-mobile__lists d-flex justify-content-between mt-2">
+				<div className="header-mobile__item">
+					<Link to='/'>
+						<i className="fs-3 fa-solid fa-house-chimney"></i>
+					</Link>
+				</div>
+				<div className="header-mobile__item">
+					<Link to='/'>
+						<i className="fs-3 fa-solid fa-bars"></i>
+					</Link>
 				</div>
 			</div>
 		</div>

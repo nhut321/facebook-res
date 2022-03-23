@@ -88,7 +88,7 @@ export default function Login() {
 
 	console.log(validator.success)
 	return (
-		<div className="login d-flex align-items-center justify-content-center flex-wrap">
+		<div className="login d-flex justify-content-center flex-wrap">
 			<div className="login-slogan">
 				<img src="/img/fakebook.png" alt=""/>
 				<h2>Nơi lạnh nhất không phải ở Bắc cực, nơi lạnh nhất đó là lòng người.</h2>

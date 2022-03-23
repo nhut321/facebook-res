@@ -58,8 +58,9 @@ export default function Profile({Auth}) {
 		})
 	}
 
-
+	const fullName = Auth.state.fname + ' ' + Auth.state.lname || Auth.state.fname + ' ' + Auth.state.lname
 	
+	console.log(Auth.state.fname)
 	
 	return (
 		<>
@@ -75,7 +76,7 @@ export default function Profile({Auth}) {
 					</div>
 					<div className="profile-info__center ms-4">
 						<div className="profile-info__center-name d-flex align-items-center">
-							<h1>{ (Auth.fname + Auth.lname) ?? toString(Auth.state.fname + Auth.state.lname)}</h1>
+							<h1>{fullName}</h1>
 							{
 								 Auth.verified ?? Auth.state.verified
 								?
