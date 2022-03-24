@@ -12,7 +12,9 @@ export default function PostItem({
 		userId,
 		likePost,
 		verifiedAccount,
-		avatar
+		avatar,
+		fname,
+		lname
 	}) {
 	const Auth = useContext(AuthContext)
 	const homeContext = useContext(HomeContext)
@@ -74,7 +76,8 @@ export default function PostItem({
 					
 					return [...v, {
 						userId: {
-							fullName: Auth.state.fullName,
+							fname: Auth.state.fname,
+							lname: Auth.state.lname,
 							verified: Auth.state.verified,
 							avatar: Auth.state.avatar
 						},
@@ -104,7 +107,7 @@ export default function PostItem({
 								to={`/user/user-id?id=${userId}`}
 								className='text-dark text-decoration-none'
 							>
-								{fullName}
+								{fname + ' ' + lname}
 							</Link>
 						</span>
 						<div className="post-item__header-verified">
@@ -186,7 +189,7 @@ export default function PostItem({
 									<div className="comment-item__info text-start ms-2">
 										<div className='comment-item__info-top'>
 											<div className="comment-item__info-top-name pt-2 fw-bold d-flex align-items-center">
-												{v.userId.fullName}
+												{v.userId.fname + ' ' + v.userId.lname}
 												{
 													v.userId.verified
 													?

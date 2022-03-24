@@ -27,6 +27,8 @@ function Home() {
 										dataId={v._id} 
 										description={v.description} 
 										fullName={v.userId.fullName}
+										fname={v.userId.fname}
+										lname={v.userId.lname}
 										commentProps={[]}
 										likePost={v.like}
 										verifiedAccount={v.userId.verified}

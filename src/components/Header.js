@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 import { AuthContext } from '../contexts/AuthContext'
 import { HomeContext } from '../contexts/HomeContext'
+import HeaderMobile from './HeaderMobile'
 import './Header.css'
 import { baseUrl } from './baseUrl'
 import axios from 'axios'
@@ -71,6 +72,7 @@ function Header() {
 		if(searchValue !== '') {
 			axios.get(baseUrl + '/search?name=' + searchValue)
 			.then(res => {
+				console.log(res.data)
 				 setSearchItem(res.data)
 			})
 		}
@@ -108,13 +110,13 @@ function Header() {
 							searchItem.map((v,i) => {
 								return (
 									<div key={i} className="header-left__search-item">
-										<a href={`/user/user-id?id=${v._id}`}>
+										<a href={`/user/user-id?id=${v._id}`} className='text-dark text-decoration-none'>
 											<img 
 												src="/img/avatar.png" 
 												alt="" 
 												className='m-2'
 											/>
-											{v.fullName}
+											{v.lname + ' ' + v.fname}
 										</a>
 									</div>
 								)
@@ -125,7 +127,7 @@ function Header() {
 				</div>
 
 			</div>
-			{isMobile ? <HeaderMobile /> : <></>}
+			{isMobile ? <HeaderMobile logOut={logOut} Auth={Auth}/> : <></>}
 			<div className="header-center">
 				<ul className="header-center__tab-ui d-flex align-items-center">
 					<li 
@@ -198,6 +200,7 @@ function Header() {
 							<div className="notifi-lists d-flex flex-column-reverse shadow">
 								{
 									toggle.notification.map((v,i) => {
+										console.log(v)
 										 return (
 										 	<div key={i} className="notifi-item">
 										 		<img src="/img/avatar.png" alt=""/>
@@ -275,23 +278,6 @@ function Header() {
 	)
 }
 
-function HeaderMobile() {
-	return (
-		<div className="header-mobile">
-			<div className="header-mobile__lists d-flex justify-content-between mt-2">
-				<div className="header-mobile__item">
-					<Link to='/'>
-						<i className="fs-3 fa-solid fa-house-chimney"></i>
-					</Link>
-				</div>
-				<div className="header-mobile__item">
-					<Link to='/'>
-						<i className="fs-3 fa-solid fa-bars"></i>
-					</Link>
-				</div>
-			</div>
-		</div>
-	)
-}
+
 
 export default memo(Header)

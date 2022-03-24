@@ -60,8 +60,6 @@ export default function Profile({Auth}) {
 
 	const fullName = Auth.state.fname + ' ' + Auth.state.lname || Auth.state.fname + ' ' + Auth.state.lname
 	
-	console.log(Auth.state.fname)
-	
 	return (
 		<>
 			<div className="profile-header shadow-sm">

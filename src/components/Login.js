@@ -85,8 +85,6 @@ export default function Login() {
 		// 	})
 		// }
 	}
-
-	console.log(validator.success)
 	return (
 		<div className="login d-flex justify-content-center flex-wrap">
 			<div className="login-slogan">
@@ -126,8 +124,8 @@ export default function Login() {
 							{
 								spinner 
 								?
-									<div class="spinner-border text-light" role="status">
-									  <span class="visually-hidden">Loading...</span>
+									<div className="spinner-border text-light" role="status">
+									  <span className="visually-hidden">Loading...</span>
 									</div>
 								:
 									<span>Đăng nhập</span>

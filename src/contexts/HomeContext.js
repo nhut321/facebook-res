@@ -39,14 +39,12 @@ function HomeContextProvider({children}) {
 			.then(res => {
 				res.data.user.notification.map(noti => {
 					setNotification(item => [...item, noti])
-					console.log(notification.length !== res.data.user.notification.length)
 					if(notification.length !== res.data.user.notification.length) {
 						setViewNoti(false)
 					}
 					// setViewNoti(false)
 				})
 				res.data.friends.map(friend => {
-					console.log(res.data)
 					setFriendList(item => [...item,friend])
 				})
 			})
@@ -106,6 +104,8 @@ function HomeContextProvider({children}) {
 							 userId: {
 							 	_id: result.data.data.userId,
 							 	fullName: Auth.state.fullName,
+							 	fname: Auth.state.fname,
+							 	lname: Auth.state.lname,
 							 	email: Auth.state.email,
 							 	verified: Auth.state.verified,
 							 	avatar: Auth.state.avatar

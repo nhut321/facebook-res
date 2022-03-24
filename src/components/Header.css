@@ -303,6 +303,30 @@
     .header-left__search {
         justify-content: start
     }
+    .header-mobile__item {
+        position: relative;
+    }
+    .header-mobile__item-menu-lists {
+        position: absolute;
+    }
+    .header-mobile__menu-lists {
+        background-color: var(--background-color);
+    }
+    .header-mobile__menu-item {
+        display: flex;
+        justify-content: start;
+        background-color: white;
+        border-bottom: 1px solid var(--background-color);
+    }
+    .header-mobile__menu-item img {
+        width: 2.125em;
+    }
+    .header-mobile__menu-item i {
+        font-size: 2.125em;
+    }
+    .header-mobile__menu-item span {
+        margin-left: 0.5em;
+    }
     .header-center,
     .header-right {
         display: none;

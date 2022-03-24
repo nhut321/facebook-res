@@ -369,4 +369,8 @@
 	.post-item {
 		min-width: 100%;
 	}
+	.post-modal__form {
+		margin: auto;
+		width: 90%;
+	}
 }
