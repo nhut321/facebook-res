@@ -88,6 +88,8 @@
 
 .home-sidebar__item {
 	padding: 0.75rem;
+	background-color: white;
+	border-radius: 12px;
 }
 
 .home-sidebar__item > a {
@@ -95,8 +97,21 @@
 }
 
 .home-sidebar__item > a > img {
-	width: 28px;
-	height: 28px;
+	width: 40px;
+	height: 40px;
+	margin-right: 0.5rem;
+}
+
+.home-sidebar__item.me {
+	background-color: white;
+}
+
+.home-sidebar__item.me > a > img {
+	border-radius: 12px;
+}
+
+.home-sidebar__item.invitations img {
+	border-radius: 12px;
 }
 
 .home-right__body-item {

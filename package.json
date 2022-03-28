@@ -1,5 +1,6 @@
 {
   "name": "facebook",
+  "homepage": "http://empty-web.tk",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

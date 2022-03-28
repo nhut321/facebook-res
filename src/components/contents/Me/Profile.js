@@ -68,8 +68,14 @@ export default function Profile({Auth}) {
 				</div>
 				<div className="profile-info pb-4">
 					<div className="profile-info__left">
-						<div className="profile-info__left-avatar">
-							<img src={Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar} alt=""/>
+						<div 
+							className="profile-info__left-avatar"
+							style={{
+								backgroundImage: `url("${Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar}")`
+							}}
+						>
+							<i class="fa-solid fa-camera"></i>
+							{/* <img src={Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar} alt=""/> */}
 						</div>
 					</div>
 					<div className="profile-info__center ms-4">

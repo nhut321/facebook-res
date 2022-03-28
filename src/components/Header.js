@@ -10,6 +10,7 @@ import { useMediaQuery } from 'react-responsive'
 import { AuthContext } from '../contexts/AuthContext'
 import { HomeContext } from '../contexts/HomeContext'
 import HeaderMobile from './HeaderMobile'
+import Navbar from './Navbar'
 import './Header.css'
 import { baseUrl } from './baseUrl'
 import axios from 'axios'
@@ -28,6 +29,27 @@ function Header() {
 	const [userMenu, setUserMenu] = useState(true)
 	const [toggleNoti, setToggleNoti] = useState(false)
 	const [noti, setNoti] = useState([])
+	// const [navbar, setNavbar] = useState({
+	// 	
+	// })
+	const [navbarStyle, setNavbarStyle] = useState({
+		transform: 'translateX(-150%)'
+	})
+
+	const [navbar, setNavbar] = useState(false)
+
+	const toggleNav = () => {
+		setNavbar(v => !v)
+		if (navbar) {
+			setNavbarStyle({
+				transform: 'translateX(-150%)'
+			})
+		} else {
+			setNavbarStyle({
+				transform: 'translateX(0)'
+			})
+		}
+	}
 
 	const searchInput = useRef()
 
@@ -79,8 +101,15 @@ function Header() {
 	}
 
 	return (
-		<div className="header d-flex justify-content-between shadow-sm">
+		<div className="header d-flex justify-content-between shadow-sm container-fluid">
+			<Navbar style={navbarStyle}/>
 			<div className="header-left d-flex align-items-center">
+				<div 
+					className="header-left__Nav d-flex align-items-center justify-content-center"
+					onClick={toggleNav}
+				>
+					<svg width="25px" height="25px" viewBox="0 0 24 24" id="magicoon-Filled" xmlns="http://www.w3.org/2000/svg"><title>menu</title><g id="menu-Filled"><path id="menu-Filled-2" data-name="menu-Filled" className="cls-1" d="M2,5A1,1,0,0,1,3,4H16a1,1,0,0,1,0,2H3A1,1,0,0,1,2,5Zm19,6H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Zm-9,7H3a1,1,0,0,0,0,2h9a1,1,0,0,0,0-2Z"/></g></svg>
+				</div>
 				<div className='header-left__logo'>
 					<Link to='/'>
 						<i className="fa-brands fa-facebook"></i>
@@ -90,7 +119,7 @@ function Header() {
 					className='header-left__search'
 					onClick={searchFn}
 				>
-					<img src='/img/search-interface-symbol.png' />
+					<i className="fa-solid fa-magnifying-glass"></i>
 					<form onSubmit={onSubmitSearch}>
 						<input
 							value={searchValue} 
@@ -110,14 +139,14 @@ function Header() {
 							searchItem.map((v,i) => {
 								return (
 									<div key={i} className="header-left__search-item">
-										<a href={`/user/user-id?id=${v._id}`} className='text-dark text-decoration-none'>
+										<Link to={`/user/user-id?id=${v._id}`} className='text-dark text-decoration-none'>
 											<img 
 												src="/img/avatar.png" 
 												alt="" 
 												className='m-2'
 											/>
 											{v.lname + ' ' + v.fname}
-										</a>
+										</Link>
 									</div>
 								)
 							})
@@ -128,34 +157,26 @@ function Header() {
 
 			</div>
 			{isMobile ? <HeaderMobile logOut={logOut} Auth={Auth}/> : <></>}
-			<div className="header-center">
-				<ul className="header-center__tab-ui d-flex align-items-center">
-					<li 
-						className={toggle.toggleTabMenu === 1 ? 'tab-ui__item active' : 'tab-ui__item'}
-						onClick={() => toggleFn(1)}
-					>
-						<Link to='/'>
-							<img src="/img/home.png" alt="" />
-						</Link>
-					</li>
-					<li 
-						className={toggle.toggleTabMenu === 2 ? 'tab-ui__item active' : 'tab-ui__item'}
-						onClick={() => toggleFn(2)}
-					>
-						<a href='#'>
-							<img src="/img/friends(1).png" alt="" />
-						</a>
-					</li>
-					<li 
-						className={toggle.toggleTabMenu === 3 ? 'tab-ui__item active' : 'tab-ui__item'}
-						onClick={() => toggleFn(3)}
-					>
-						<a href='#'>
-							<img src="/img/play.png" alt="" />
-						</a>
-					</li>
-				</ul>
-			</div>
+			{/* <div className="header-center"> */}
+			{/* 	<ul className="header-center__tab-ui d-flex align-items-center"> */}
+			{/* 		<li  */}
+			{/* 			className={toggle.toggleTabMenu === 1 ? 'tab-ui__item active' : 'tab-ui__item'} */}
+			{/* 			onClick={() => toggleFn(1)} */}
+			{/* 		> */}
+			{/* 			<Link to='/'> */}
+			{/* 				<i className="fa-solid fa-house-chimney fs-4"></i> */}
+			{/* 			</Link> */}
+			{/* 		</li> */}
+			{/* 		<li  */}
+			{/* 			className={toggle.toggleTabMenu === 2 ? 'tab-ui__item active' : 'tab-ui__item'} */}
+			{/* 			onClick={() => toggleFn(2)} */}
+			{/* 		> */}
+			{/* 			<Link to='#'> */}
+			{/* 				<i className="fa-solid fa-user-group fs-4"></i> */}
+			{/* 			</Link> */}
+			{/* 		</li> */}
+			{/* 	</ul> */}
+			{/* </div> */}
 			<div className="header-right">
 				<div 
 					className="header-right__user me-2 d-flex"
@@ -177,7 +198,7 @@ function Header() {
 					</div>
 					<div className="header-right__options-item messenger">
 						<Link to="/messages">
-							<img src='/img/messenger.png' />
+							<i className="text-dark fa-solid fa-envelope fs-5"></i>
 						</Link>
 					</div>
 					<div 
@@ -193,7 +214,7 @@ function Header() {
 								!
 							</div>
 						}
-						<img src='/img/notification.png' />
+						<i className="fa-solid fa-bell fs-5"></i>
 						{
 							toggleNoti 
 							?

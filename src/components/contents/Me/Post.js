@@ -36,34 +36,22 @@ export default function Post() {
 	return (
 		<div className="profile-contents-post d-flex justify-content-center mt-3">
 			<div className="profile-contents-post__left me-3">
-				<div className="profile-contents-post__left-intro shadow-sm">
-					<div className="intro-header">
-						<span>Intro</span>
+				<div className="profile-contents-post__left-follow shadow-sm">
+					<div className="left-follow-heading border-bottom">
+						<span>Người mà bạn theo dõi</span>
 					</div>
-					<div className="intro-body">
-						<div className="intro-body__box bio">
-							<div className="intro-body__box-lists">
-								
+					<div className="left-follow-content mt-4">
+						<div className="left-follow-content__lists d-flex flex-wrap">
+							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
 							</div>
-							<button className='btn col-12'>Add bio</button>
-						</div>
-						<div className="intro-body__box details">
-							<div className="intro-body__box-lists">
-								
+							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
 							</div>
-							<button className='btn col-12'>Edit details</button>
-						</div>
-						<div className="intro-body__box hobbies">
-							<div className="intro-body__box-lists">
-								
+							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
 							</div>
-							<button className='btn col-12'>Edit hobbies</button>
-						</div>
-						<div className="intro-body__box featured">
-							<div className="intro-body__box-lists">
-								
+							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
 							</div>
-							<button className='btn col-12'>Edit featured</button>
+							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -73,16 +61,16 @@ export default function Post() {
 				<div className='d-flex flex-column-reverse'>
 					{
 						postItem.map((v,i) => {
-							// if(v.userId._id === Auth.state.userId) {
 								return (<PostItem 
 											key={i}
 											description={v.description}
 											fullName={v.userId.fullName}
+											fname={v.userId.fname}
+											lname={v.userId.lname}
 											dataId={v._id}
 											verifiedAccount={v.userId.verified}
 											likePost={v.like}
 								/>)
-							// }
 						})
 					}
 					{
