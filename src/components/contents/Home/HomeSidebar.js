@@ -15,8 +15,8 @@ export default function HomeSidebar() {
 				<div className="home-sidebar__item invitations shadow-sm">
 					<img className='col-12' src="/img/invitations.jpg" alt=""/>
 					<div className="invitations-btn d-flex align-items-center mt-3">
-						<Button className='me-2 rounded'>Accept invitation</Button>
-						<Button className='btn-light shadow-sm rounded btn-outline-secondary'>X</Button>
+						<button className='btn me-2 rounded text-light' style={{backgroundColor: 'var(--primary-color)'}}>Accept invitation</button>
+						<button className='btn-light shadow-sm rounded btn-outline-secondary'>X</button>
 					</div>
 				</div>
 			</div>

@@ -112,14 +112,16 @@ function Header() {
 				</div>
 				<div className='header-left__logo'>
 					<Link to='/'>
-						<i className="fa-brands fa-facebook"></i>
+						<i className="fa-brands fa-facebook" style={{color: 'white'}}></i>
 					</Link>
 				</div>
 				<div
 					className='header-left__search'
 					onClick={searchFn}
 				>
-					<i className="fa-solid fa-magnifying-glass"></i>
+					<div className="header-left__search-icon">
+						<i className="fa-solid fa-magnifying-glass"></i>
+					</div>
 					<form onSubmit={onSubmitSearch}>
 						<input
 							value={searchValue} 
@@ -184,7 +186,7 @@ function Header() {
 					<Link className='text-dark text-decoration-none' to="/me">
 						<img src={Auth.state.avatar || '/img/avatar.png'} alt=""/>
 						<span className='p-1'>
-							<strong>
+							<strong className='text-light'>
 								{
 									name
 								}
@@ -193,12 +195,9 @@ function Header() {
 					</Link>
 				</div>
 				<div className="header-right__options d-flex align-items-center">
-					<div className="header-right__options-item menu">
-						<img src='/img/dots-menu.png' />
-					</div>
 					<div className="header-right__options-item messenger">
 						<Link to="/messages">
-							<i className="text-dark fa-solid fa-envelope fs-5"></i>
+							<i className="fa-solid fa-envelope fs-5"></i>
 						</Link>
 					</div>
 					<div 
@@ -239,7 +238,7 @@ function Header() {
 						className="header-right__options-item down-btn"
 						onClick={toggleUserMenu}
 					>
-						<img src='/img/down-filled-triangular-arrow.png' />
+						<i class="fa-solid fa-caret-down"></i>
 						<ul 
 							className={userMenu ? 'down-btn__dropdown-lists shadow rounded-3' : 'down-btn__dropdown-lists open shadow rounded-3'}
 						>

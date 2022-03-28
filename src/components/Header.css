@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     height: 56px;
-    background-color: white;
+    background-color: var(--primary-color);
     z-index: 4;
 }
 
@@ -48,12 +48,40 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--background-color);
+    background-color: #534fee;
     width: 300px;
     height: 40px;
-    padding: 10px;
+    padding: 10px 0;
     margin-left: 12px;
-    border-radius: 12px;
+    border-radius: 30px;
+}
+
+.header-left__search-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    margin-left: 2px;
+    background-color: #5edfff;
+    color: white;
+    border-radius: 50%;
+}
+
+.header-left__search-icon i {
+    position: relative;
+}
+
+.header-left__search-icon i::after {
+    content: '';
+    position: absolute;
+    width: 7px;
+    height: 16px;
+    background-color: white;
+    top: -10px;
+    right: -5px;
+    transform: rotate(-45deg);
+    border-radius: 50%;
 }
 
 .header-left__search form {
@@ -64,6 +92,7 @@
     width: 100%;
     margin-left: 10px;
     border: none;
+    color: white;
     background-color: transparent;
 }
 
@@ -143,10 +172,6 @@
     padding: 0 15px;
 
 }
-.header-right__user:hover {
-    background-color: #f0f2f5;
-    border-radius: 12px;
-}
 
 .header-right__user img {
     width: 40px;
@@ -162,17 +187,30 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--background-color);
+    color: #38368b;
     cursor: pointer;
+}
+
+.header-right__options-item:hover {
+    color: white;
 }
 
 .header-right__options-item.notifi {
     position: relative;
 }
 
+.header-right__options-item > a {
+    color: #38368b;
+
+}
+
+.header-right__options-item > a:hover {
+    color: white;
+}
+
 .notifi_count {
     position: absolute;
-    background-color: red;
+    background-color: var(--secondary-color);
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
@@ -204,10 +242,6 @@
     border-radius: 50%;
 }
 
-
-.header-right__options-item:hover {
-    background-color: #e2e3e3;
-}
 
 .header-right__options-item.down-btn {
     position: relative;

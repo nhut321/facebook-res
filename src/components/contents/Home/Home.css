@@ -5,12 +5,14 @@
 
 .home-main {
 	position: relative;
-	max-width: 745px;
-	width: 745px;
+	margin-right: 1rem;
+	/*max-width: 745px;
+	width: 745px;*/
 	scroll-behavior: smooth;
 	-ms-overflow-style: none;  /* IE and Edge */
   	scrollbar-width: none;   /* Firefox */
 	overflow: auto;
+	flex: 1;
 }
 
 .home-main::-webkit-scrollbar {
@@ -18,10 +20,11 @@
 }
 
 .post-box {
+	width: 100%;
 	background-color: white;
 	border-radius: 5px;
-	max-width: 500px;
-	width: 480px;
+	/*max-width: 500px;
+	width: 480px;*/
 	padding: 12px 16px;
 }
 
@@ -79,7 +82,7 @@
 
 .home-sidebar, 
 .home-right {
-	flex: 1;
+	/*flex: 1;*/
 }
 
 .home-sidebar__lists {
@@ -153,9 +156,14 @@
   align-items: center;
 }
 
+.post-lists {
+	width: 100%;
+}
+
 .post-item {
-	max-width: 500px;
-	min-width: 480px;
+	width: 100%;
+	/*max-width: 500px;
+	min-width: 480px;*/
 	padding: 12px 16px;
 	background-color: white;
 	border-radius: 5px;

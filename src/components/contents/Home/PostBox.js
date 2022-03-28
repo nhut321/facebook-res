@@ -1,7 +1,9 @@
 import { useContext } from 'react'
 import { HomeContext } from '../../../contexts/HomeContext'
+import { AuthContext } from '../../../contexts/AuthContext'
 
 export default function PostBox() {
+	const Auth = useContext(AuthContext)
 	const modal = useContext(HomeContext)
 
 	return (
@@ -11,7 +13,7 @@ export default function PostBox() {
 					<img src="/img/avatar.png" alt=""/>
 				</div>
 				<div className="post-box-top__type m-2"  onClick={modal.togglePostModal}>
-					<span className='text-muted'>Nhựt ơi, bạn đang nghĩ gì thế?</span>
+					<span className='text-muted'>{Auth.state.fname} ơi, bạn đang nghĩ gì thế?</span>
 				</div>
 			</div>
 			<div className="post-box-bottom d-flex justify-content-between">

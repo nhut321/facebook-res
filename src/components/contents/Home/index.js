@@ -10,8 +10,8 @@ import './Home.css'
 function Home() {
 	const modal = useContext(HomeContext)
 	return (
-		<div className="home d-flex container-fluid">
-			<HomeSidebar />
+		<div className="home d-flex justify-content-between container-fluid">
+			{/* <HomeSidebar /> */}
 			<div className="home-main d-flex align-items-center flex-column">
 				<PostBox />
 				<div className="post-lists d-flex flex-column-reverse">
