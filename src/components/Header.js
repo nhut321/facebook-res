@@ -11,6 +11,7 @@ import { AuthContext } from '../contexts/AuthContext'
 import { HomeContext } from '../contexts/HomeContext'
 import HeaderMobile from './HeaderMobile'
 import Navbar from './Navbar'
+import OnlineMobile from './OnlineMobile'
 import './Header.css'
 import { baseUrl } from './baseUrl'
 import axios from 'axios'
@@ -29,13 +30,18 @@ function Header() {
 	const [userMenu, setUserMenu] = useState(true)
 	const [toggleNoti, setToggleNoti] = useState(false)
 	const [noti, setNoti] = useState([])
+	const [navbar, setNavbar] = useState(false)
 	const [navbarClass, setNavbarClass] = useState('')
 	const [navbarStyle, setNavbarStyle] = useState({
 		// transform: 'translateX(-150%)'
 		width: '70px'
 	})
+	const [chatIconState, setChatIconState] = useState(false)
+	const [chatClass, setChatClass] = useState('')
+	const [chatStyle, setChatStyle] = useState({
+		transform: 'translateX(100%)'
+	})
 
-	const [navbar, setNavbar] = useState(false)
 
 	const toggleNav = () => {
 		setNavbar(v => !v)
@@ -49,6 +55,21 @@ function Header() {
 				width: '300px'
 			})
 			setNavbarClass('active')
+		}
+	}
+
+	const toggleChat = () => {
+		setChatIconState(v => !v)
+		if (chatIconState) {
+			setChatStyle({
+				transform: 'translateX(100%)'
+			})
+			// setNavbarClass('')
+		} else {
+			setChatStyle({
+				transform: 'translateX(0)'
+			})
+			// setNavbarClass('active')
 		}
 	}
 
@@ -279,8 +300,27 @@ function Header() {
 							</li>
 						</ul>
 					</div>
+					{
+						isMobile 
+						?
+						<div 
+							className="header-right__options-item chat-mobile" 
+							onClick={toggleChat}
+						>
+							<i class="fa-solid fa-comments"></i>
+						</div>
+						:
+						<></>
+					}
 				</div>
 			</div>
+			{
+				isMobile
+				?
+				<OnlineMobile style={chatStyle} />
+				:
+				<></>
+			}
 		</div>
 	)
 }

@@ -1,6 +1,6 @@
 .navbarr {
 	position: absolute;
-	top: calc(100% + 15px);
+	top: 100%;
 	transition: 0.1s;
 	width: 300px;
 	border-radius: 12px;

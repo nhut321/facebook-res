@@ -205,6 +205,23 @@
     color: white;
 }
 
+.header-right__options-item.chat-mobile {
+    background-color: #5edfff;
+    padding: 20px;
+    margin: 0 1rem;
+    font-size: 20px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.header-right__options-item.chat-mobile:hover {
+    background-color: #5854ef;
+}
+
+.header-right__options-item.chat-mobile i {
+    color: white;
+}
+
 .header-right__options-item.notifi {
     position: relative;
 }

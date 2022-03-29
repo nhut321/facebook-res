@@ -74,7 +74,7 @@ export default function Profile({Auth}) {
 								backgroundImage: `url("${Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar}")`
 							}}
 						>
-							<i class="fa-solid fa-camera"></i>
+							<i className="fa-solid fa-camera"></i>
 							{/* <img src={Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar} alt=""/> */}
 						</div>
 					</div>
