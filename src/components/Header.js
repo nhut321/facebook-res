@@ -29,11 +29,10 @@ function Header() {
 	const [userMenu, setUserMenu] = useState(true)
 	const [toggleNoti, setToggleNoti] = useState(false)
 	const [noti, setNoti] = useState([])
-	// const [navbar, setNavbar] = useState({
-	// 	
-	// })
+	const [navbarClass, setNavbarClass] = useState('')
 	const [navbarStyle, setNavbarStyle] = useState({
-		transform: 'translateX(-150%)'
+		// transform: 'translateX(-150%)'
+		width: '70px'
 	})
 
 	const [navbar, setNavbar] = useState(false)
@@ -42,12 +41,14 @@ function Header() {
 		setNavbar(v => !v)
 		if (navbar) {
 			setNavbarStyle({
-				transform: 'translateX(-150%)'
+				width: '70px'
 			})
+			setNavbarClass('')
 		} else {
 			setNavbarStyle({
-				transform: 'translateX(0)'
+				width: '300px'
 			})
+			setNavbarClass('active')
 		}
 	}
 
@@ -81,6 +82,7 @@ function Header() {
 		})
 	}
 
+
 	let name = Auth.state.fname
 
 	const onSubmitSearch = e => {
@@ -100,9 +102,13 @@ function Header() {
 		}
 	}
 
+	// const onBlurInput = () => {
+	// 	setSearchItem([])
+	// }
+
 	return (
-		<div className="header d-flex justify-content-between shadow-sm container-fluid">
-			<Navbar style={navbarStyle}/>
+		<div className="header d-flex justify-content-between shadow-sm">
+			<Navbar style={navbarStyle} className={navbarClass}/>
 			<div className="header-left d-flex align-items-center">
 				<div 
 					className="header-left__Nav d-flex align-items-center justify-content-center"
@@ -158,30 +164,10 @@ function Header() {
 				</div>
 
 			</div>
-			{isMobile ? <HeaderMobile logOut={logOut} Auth={Auth}/> : <></>}
-			{/* <div className="header-center"> */}
-			{/* 	<ul className="header-center__tab-ui d-flex align-items-center"> */}
-			{/* 		<li  */}
-			{/* 			className={toggle.toggleTabMenu === 1 ? 'tab-ui__item active' : 'tab-ui__item'} */}
-			{/* 			onClick={() => toggleFn(1)} */}
-			{/* 		> */}
-			{/* 			<Link to='/'> */}
-			{/* 				<i className="fa-solid fa-house-chimney fs-4"></i> */}
-			{/* 			</Link> */}
-			{/* 		</li> */}
-			{/* 		<li  */}
-			{/* 			className={toggle.toggleTabMenu === 2 ? 'tab-ui__item active' : 'tab-ui__item'} */}
-			{/* 			onClick={() => toggleFn(2)} */}
-			{/* 		> */}
-			{/* 			<Link to='#'> */}
-			{/* 				<i className="fa-solid fa-user-group fs-4"></i> */}
-			{/* 			</Link> */}
-			{/* 		</li> */}
-			{/* 	</ul> */}
-			{/* </div> */}
+			{/* {isMobile ? <HeaderMobile logOut={logOut} Auth={Auth}/> : <></>} */}
 			<div className="header-right">
 				<div 
-					className="header-right__user me-2 d-flex"
+					className="header-right__user me-2"
 				>
 					<Link className='text-dark text-decoration-none' to="/me">
 						<img src={Auth.state.avatar || '/img/avatar.png'} alt=""/>
@@ -196,9 +182,10 @@ function Header() {
 				</div>
 				<div className="header-right__options d-flex align-items-center">
 					<div className="header-right__options-item messenger">
-						<Link to="/messages">
-							<i className="fa-solid fa-envelope fs-5"></i>
-						</Link>
+						<i className="fa-solid fa-user-group"></i>
+					</div>
+					<div className="header-right__options-item messenger">
+						<i className="fa-solid fa-envelope fs-5"></i>
 					</div>
 					<div 
 						className="header-right__options-item notifi"
@@ -238,7 +225,7 @@ function Header() {
 						className="header-right__options-item down-btn"
 						onClick={toggleUserMenu}
 					>
-						<i class="fa-solid fa-caret-down"></i>
+						<i className="fa-solid fa-caret-down"></i>
 						<ul 
 							className={userMenu ? 'down-btn__dropdown-lists shadow rounded-3' : 'down-btn__dropdown-lists open shadow rounded-3'}
 						>

@@ -12,7 +12,7 @@ function Home() {
 	return (
 		<div className="home d-flex justify-content-between container-fluid">
 			{/* <HomeSidebar /> */}
-			<div className="home-main d-flex align-items-center flex-column">
+			<div className="home-main d-flex align-items-center flex-column col-9">
 				<PostBox />
 				<div className="post-lists d-flex flex-column-reverse">
 					{

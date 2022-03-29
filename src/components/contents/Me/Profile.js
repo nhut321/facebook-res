@@ -62,10 +62,10 @@ export default function Profile({Auth}) {
 	
 	return (
 		<>
-			<div className="profile-header shadow-sm">
-				<div className="profile-cover">
-					<img src="/img/cover.png" alt=""/>
-				</div>
+			<div className="profile-header shadow-sm" style={{backgroundImage: 'url("/img/cover.jpg")'}}>
+				{/* <div className="profile-cover"> */}
+				{/* 	<img src="/img/cover.png" alt=""/> */}
+				{/* </div> */}
 				<div className="profile-info pb-4">
 					<div className="profile-info__left">
 						<div 
@@ -94,14 +94,14 @@ export default function Profile({Auth}) {
 
 							}
 						</div>
-						<div className="profile-info__center-follow d-flex">
+						<div className="profile-info__center-follow d-flex text-light">
 							<div className="follower me-2">
-								{follower.length +' '}
-								follower
+								Người theo dõi:
+								{' ' + follower.length}
 							</div>
 							<div className="following">
-								{following.length +' '}
-								following
+								Đang theo dõi: 
+								{' ' + follower.length}
 							</div>
 						</div>
 					</div>
@@ -138,16 +138,16 @@ export default function Profile({Auth}) {
 						</button>
 					</div>
 				</div>
-				<div className="profile-bottom d-flex justify-content-between align-items-center">
-					<div className="profile-bottom__link">
-						<Link className='text-decoration-none fw-bold active' to="/me/">Post</Link>
-						<Link className='text-decoration-none fw-bold' to="/me/about">About</Link>
-						<Link className='text-decoration-none fw-bold' to="/me/friends">Friend</Link>
-					</div>
-					<div className="profile-bottom__menu">
-						<i className="fa-solid fa-ellipsis fs-4"></i>
-					</div>
-				</div>
+				{/* <div className="profile-bottom d-flex justify-content-between align-items-center"> */}
+				{/* 	<div className="profile-bottom__link"> */}
+				{/* 		<Link className='text-decoration-none fw-bold active' to="/me/">Post</Link> */}
+				{/* 		<Link className='text-decoration-none fw-bold' to="/me/about">About</Link> */}
+				{/* 		<Link className='text-decoration-none fw-bold' to="/me/friends">Friend</Link> */}
+				{/* 	</div> */}
+				{/* 	<div className="profile-bottom__menu"> */}
+				{/* 		<i className="fa-solid fa-ellipsis fs-4"></i> */}
+				{/* 	</div> */}
+				{/* </div> */}
 			</div>
 
 			<div className="profile-contents">

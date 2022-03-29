@@ -25,7 +25,7 @@ function App() {
         ? 
           <HomeContextProvider>
             <Header />
-            <div style={{marginTop: '70px'}}>
+            <div className='container' style={{marginTop: '70px'}}>
               <Routes>
                 <Route path='/' element={<Home />}/>
                 <Route path='/messages' element={<Chat />}/>

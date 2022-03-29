@@ -34,29 +34,21 @@ export default function Post() {
 
 
 	return (
-		<div className="profile-contents-post d-flex justify-content-center mt-3">
+		<div className="profile-contents-post d-flex justify-content-between mt-3">
 			<div className="profile-contents-post__left me-3">
-				<div className="profile-contents-post__left-follow shadow-sm">
-					<div className="left-follow-heading border-bottom">
-						<span>Người mà bạn theo dõi</span>
+				<div className="profile-contents-post__left-item info shadow-sm">
+					<div className="user-info border-bottom pb-3 text-start">
+						<h5>Thông tin</h5>
 					</div>
-					<div className="left-follow-content mt-4">
-						<div className="left-follow-content__lists d-flex flex-wrap">
-							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
-							</div>
-							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
-							</div>
-							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
-							</div>
-							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
-							</div>
-							<div className="left-follow-content__item" style={{backgroundImage: 'url("/img/avatar.png")'}}>
-							</div>
-						</div>
+					<div className="user-info__content text-start mt-3">
+						<span>Hi! Lorem ipsum dolor sit amet consectetur adipisicing, elit.
+						 </span>
+						 <p>Tham gia: 01/01/2009</p>
+						 <p>Email: {Auth.state.email}</p>
 					</div>
 				</div>
 			</div>
-			<div className="profile-contents-post__post-right">
+			<div className="profile-contents-post__right">
 				<PostBox />
 				<div className='d-flex flex-column-reverse'>
 					{
