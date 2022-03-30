@@ -268,3 +268,13 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+/*Mobile*/
+@media screen and (max-width: 46.25em) {
+    .messages-left {
+        display: none;
+    }
+    .messages-right {
+        width: 100%!important;
+    }
+}

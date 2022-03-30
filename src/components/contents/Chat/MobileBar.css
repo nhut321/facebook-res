@@ -1,0 +1,52 @@
+.messages-mobile-bar {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 1rem;
+	background-color: white;
+}
+
+.messages-mobile-bar__item {
+	position: relative;
+	width: 40px;
+	height: 40px;
+	margin-right: 1rem;
+	cursor: pointer;
+}
+
+.messages-mobile-bar__item span {
+	position: absolute;
+    background-color: white;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 6px;
+    padding: 0 6px;
+    transition: 0.3s;
+    opacity: 0;
+}
+
+.messages-mobile-bar__item:hover span {
+	display: block;
+	opacity: 1;
+}
+
+.messages-mobile-bar__item.online .messages-mobile-bar__item-sign {
+	background-color: #1fe91f;
+}
+
+.messages-mobile-bar__item-sign {
+	position: absolute;
+	left: -4px;
+    top: -4px;
+	width: 12px;
+	height: 12px;
+	background-color: grey;
+	border-radius: 50%;
+	border: 2px solid white;
+}
+
+.messages-mobile-bar__item img {
+	width: 100%;
+	height: 100%;
+	border-radius: 12px;
+}

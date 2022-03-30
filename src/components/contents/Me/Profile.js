@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { HomeContext } from '../../../contexts/HomeContext'
 import Post from './Post'
@@ -10,6 +10,7 @@ import axios from 'axios'
 import { socket } from '../../socket'
 
 export default function Profile({Auth}) {
+	const navigate = useNavigate()
 	const authContext = useContext(AuthContext)
 	const homeContext = useContext(HomeContext)
 	const [follow, setFollow] = useState(false)
@@ -55,6 +56,15 @@ export default function Profile({Auth}) {
 		setFollower(v => {
 			const result = v.filter(item => item !== authContext.state.userId)
 			return result
+		})
+	}
+
+	const createConversation = async (receiverId) => {
+		await axios.post(baseUrl + '/conversations/create', {
+			senderId: authContext.state.userId,
+			receiverId: Auth.state.userId
+		}).then(res => {
+			res.data.success ? navigate('/messages') : navigate('/messages')
 		})
 	}
 
@@ -109,13 +119,20 @@ export default function Profile({Auth}) {
 						{
 							Auth.state.userId === authContext.state.userId
 							?
+								<>
 								<button className='btn btn-primary me-2'>
 									<i className="fa-solid fa-plus"></i>
 									Add stories
 								</button>
+								<button className='btn text-dark' style={{backgroundColor: 'var(--background-color)'}}>
+									<i className="fa-solid fa-pen"></i>
+									Edit profile
+								</button>
+								</>
 							:
 								follow 
 								?
+									<>
 									<button 
 										className='btn btn-primary me-2'
 										onClick={unFollowFn}
@@ -123,7 +140,17 @@ export default function Profile({Auth}) {
 										<i className="fa-solid fa-check me-2"></i>
 										Unfollow
 									</button>
+									<button 
+										className='btn text-dark' 
+										style={{backgroundColor: 'var(--background-color)'}}
+										onClick={createConversation}
+									>
+										<i className="fa-solid fa-pen"></i>
+										Chat
+									</button>
+									</>
 								:
+									<>
 									<button 
 										className='btn btn-primary me-2'
 										onClick={followFn}
@@ -131,11 +158,16 @@ export default function Profile({Auth}) {
 										<i className="fa-solid fa-plus me-2"></i>
 										Follow
 									</button>
+									<button 
+										className='btn text-dark' 
+										style={{backgroundColor: 'var(--background-color)'}}
+										onClick={createConversation}
+									>
+										<i className="fa-solid fa-pen"></i>
+										Chat
+									</button>
+									</>
 						}
-						<button className='btn text-dark' style={{backgroundColor: 'var(--background-color)'}}>
-							<i className="fa-solid fa-pen"></i>
-							Edit profile
-						</button>
 					</div>
 				</div>
 				{/* <div className="profile-bottom d-flex justify-content-between align-items-center"> */}

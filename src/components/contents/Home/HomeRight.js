@@ -35,7 +35,7 @@ export default function HomeRight() {
 			<div className="home-right__item birthday">
 				<div className="home-right__birthday-header d-flex align-items-center justify-content-start border-bottom p-3">
 					<div className='me-2'>
-						<i class="fa-solid fa-cake-candles fs-4"></i>
+						<i className="fa-solid fa-cake-candles fs-4"></i>
 					</div>	
 					<h5 className='m-0'>Sinh nhật bạn bè</h5>
 				</div>

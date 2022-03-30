@@ -1,14 +1,19 @@
 import { useContext,useEffect,useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { HomeContext } from '../../../contexts/HomeContext'
 import { baseUrl } from '../../baseUrl'
 import Conversation from './Conversation'
 import MessageRight from './MessageRight'
+import MobileBar from './MobileBar'
 import './Chat.css'
 import axios from 'axios'
 import { socket } from '../../socket'
 
 export default function Chat() {
+	const isMobile = useMediaQuery({
+		query: '(max-width: 46.25em)' 
+	})
 	const Auth = useContext(AuthContext)
 	const homeContext = useContext(HomeContext)
 	const [selectUser, setSelectUser] = useState(false)
@@ -29,21 +34,6 @@ export default function Chat() {
 		fetchData()
 	},[])
 
-
-	// useEffect(() => {
-	// 	console.log(conversation)
-	// 	// const friendId = conversation.member.find(user => user !== Auth.state.userId)
-	// 	// const getFriendId = async () => {
-	// 	// 	try {
-	// 	// 		const res = await axios.get(baseUrl + '/user/' + friendId)
-	// 	// 		setUser(res.data.user)
-	// 	// 	} catch(err) {
-	// 	// 		console.log(err)
-	// 	// 	}
-	// 	// }
-	// 	// getFriendId()
-	// },[])
-
 	const selectConversation = async (conversationId,friend) => {
 		const message = await axios.get(baseUrl + '/chat/' + conversationId)
 		setUser(friend)
@@ -52,8 +42,30 @@ export default function Chat() {
 		setSelectUser(true)
 	}
 
+	// console.log(homeContext.userOnline)
+
 	return (
 		<div className="messages row">
+			{
+				isMobile 
+				? 
+					<div className="messages-mobile-bar border-bottom">
+						{conversation.map(v => {
+							return (
+								<MobileBar
+									item={v}
+									id={v._id}
+									userOnline={homeContext.userOnline}
+									currentId={Auth.state.userId}
+									conversationId={v._id}
+									selectConversation={selectConversation}
+								/>
+							)
+						})}
+					</div>
+				: 
+					<></>
+			}
 			<div 
 				className="messages-left col-3 border-end" 
 				style={{backgroundColor: 'white'}}
