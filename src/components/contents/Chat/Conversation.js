@@ -11,7 +11,6 @@ export default function Conversation({value, currentId, homeContext, selectConve
 		const getFriendId = async () => {
 			try {
 				const res = await axios.get(baseUrl + '/user/' + friendId)
-				console.log(res.data)
 				setUser(res.data.user) 
 			} catch(err) {
 				console.log(err)

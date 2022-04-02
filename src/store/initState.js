@@ -8,6 +8,8 @@ export const authInit = {
 
 export const postInit = {
 	description: '',
-	userId: ''
+	userId: '',
+	img: '',
+	url: ''
 }
 

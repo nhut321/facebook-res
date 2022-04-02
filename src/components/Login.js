@@ -36,7 +36,6 @@ export default function Login() {
 				})
 				.then(res => {
 					if(res.data.success) {
-						console.log(res.data)
 						Auth.dispatch({
 								type: 'LOGIN', 
 								email: res.data.user.email,

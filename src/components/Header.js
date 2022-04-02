@@ -96,7 +96,6 @@ function Header() {
 		if(searchValue !== '') {
 			axios.get(baseUrl + '/search?name=' + searchValue)
 			.then(res => {
-				console.log(res.data)
 				 setSearchItem(res.data)
 			})
 		}
@@ -207,7 +206,6 @@ function Header() {
 							<div className="notifi-lists d-flex flex-column-reverse shadow">
 								{
 									toggle.notification.map((v,i) => {
-										console.log(v)
 										 return (
 										 	<div key={i} className="notifi-item">
 										 		<img src="/img/avatar.png" alt=""/>

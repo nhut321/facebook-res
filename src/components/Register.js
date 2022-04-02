@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { baseUrl } from './baseUrl'
 import { validatorFn } from './validatorFn'
 
 export default function Register() {
+	const navigate = useNavigate()
 	const [user, setUser] = useState({
 		email: '',
 		password: '',
@@ -36,7 +37,9 @@ export default function Register() {
 				fname: user.fname,
 				lname: user.lname
 			})
-				.then(res => console.log(res.data))
+				.then(() => {
+					navigate('/login')
+				})
 		}
 		// if(user.password !== user.confirmPassword) {
 		// 	setValidator(false)

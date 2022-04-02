@@ -14,7 +14,8 @@ export default function PostItem({
 		verifiedAccount,
 		avatar,
 		fname,
-		lname
+		lname,
+		imageUrl
 	}) {
 	const Auth = useContext(AuthContext)
 	const homeContext = useContext(HomeContext)
@@ -28,15 +29,18 @@ export default function PostItem({
 	const likePostLen = likePost.length
 	
 	useEffect(() => {
-		axios.get(baseUrl + '/comments/' + dataId)
-			.then(res => {
-				res.data.map(v => {
-					
-					setCommentItem(item => {
-						return [...item, v]
+		const getComment = async () => {
+			await axios.get(baseUrl + '/comments/' + dataId)
+				.then(res => {
+					res.data.map(v => {
+						
+						setCommentItem(item => {
+							return [...item, v]
+						})
 					})
 				})
-			})
+		}
+		getComment()
 	},[])
 
 	const likeFn = () => {
@@ -141,6 +145,11 @@ export default function PostItem({
 				<div>
 					{description}
 				</div>
+
+				{
+					imageUrl ? <img src={imageUrl} style={{width: '100%', borderRadius: '12px'}} /> : <></>
+				}
+				
 				<div className='post-item__body-count mt-2 mb-2 d-flex justify-content-between'>
 					<div className="post-item__body-count-like">
 						{likePostLen}

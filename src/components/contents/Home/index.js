@@ -33,18 +33,19 @@ function Home() {
 										likePost={v.like}
 										verifiedAccount={v.userId.verified}
 										avatar={v.userId.avatar}
+										imageUrl={v.imageUrl}
 									/>
 						})
 					}
 				</div>
-				<PostModal />
+				{/* <PostModal /> */}
 			</div>
 			{
-				modal.postModal 
-				? 
-				<div className="post-modal-mask" onClick={modal.togglePostModal}></div>
-				:
-				<></>
+				// modal.postModal 
+				// ? 
+				// <div className="post-modal-mask" onClick={modal.togglePostModal}></div>
+				// :
+				// <></>
 			}
 			<HomeRight />
 		</div>

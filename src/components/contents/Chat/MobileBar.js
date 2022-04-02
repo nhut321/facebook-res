@@ -16,14 +16,12 @@ export default function MobileBar({item,
 		const getFriendId = async () => {
 			try {
 				const res = await axios.get(baseUrl + '/user/' + friendId)
-				console.log(res.data)
 				setUser(res.data.user) 
 			} catch(err) {
 				console.log(err)
 			}
 		}
 		getFriendId()
-		console.log(user.avatar)
 	},[])
 	return (
 			<div 
