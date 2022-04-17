@@ -99,6 +99,7 @@ export default function PostBox() {
 				<div className="post-box-top__type m-2">
 					<textarea 
 						type='text'
+						placeholder={Auth.state.fname + ' ơi, bạn đang nghĩ gì?'}
 						value={post.state.description}
 						onChange={
 							(e) => post.dispatch({

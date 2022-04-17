@@ -7,9 +7,9 @@ import {
 	memo
 } from 'react'
 import { AuthContext } from './AuthContext'
-import { baseUrl } from '../components/baseUrl'
 import { postReducer } from '../store/postReducer'
 import { postInit } from '../store/initState'
+import { baseUrl } from '../components/baseUrl'
 import axios from 'axios'
 import { socket } from '../components/socket'
 import { storage, ref, uploadBytesResumable, getDownloadURL } from '../firebase'
@@ -71,7 +71,7 @@ function HomeContextProvider({children}) {
 
 	useEffect(() => {
 		const getPostFn = async () => {
-			await axios.get(baseUrl + '/posts/friend-posts/' + Auth.state.userId, {
+			await axios.get('/posts/friend-posts/' + Auth.state.userId, {
 				headers: {
 					Authorization: 'Beaer ' + localStorage.getItem('token')
 				}
@@ -91,7 +91,7 @@ function HomeContextProvider({children}) {
 	const postFn = async (url) => {
 		if(state.description !== '' || state.img !=='') {
 			try {
-				await axios.post(baseUrl + '/posts/create', {
+				await axios.post('/posts/create', {
 					description: state.description,
 					userId: Auth.state.userId,
 					imageUrl: url

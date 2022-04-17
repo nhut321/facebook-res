@@ -31,7 +31,7 @@ export default function Register() {
 				message: 'Mật khẩu nhập lại không trùng khớp'
 			})
 		} else {
-			await axios.post(baseUrl+'/user/register',{
+			await axios.post(baseUrl + '/user/register',{
 				email: user.email,
 				password: user.password,
 				fname: user.fname,
@@ -65,7 +65,7 @@ export default function Register() {
 					<form onSubmit={onSubmitForm} className='d-flex flex-column pb-4'>
 						<input
 							value={user.email}
-							type='text'
+							type='email'
 							// className='form-input mb-3'
 							className={validator ? 'form-input mb-3 mb-3' : 'form-input wrong mb-3'}
 							placeholder='Email'
@@ -127,7 +127,7 @@ export default function Register() {
 						 	:
 							<div className="message mt-2 mb-2 text-danger">{validator.message}</div>
 						 }
-						<button type='submit' className="btn btn-primary btn-lg mb-4">Đăng ký</button>
+						<button type='submit' className="btn-form btn btn-lg mb-4">Đăng ký</button>
 					</form>
 					<div className="register-btn pt-4">
 						<Link to='/login'>

@@ -12,7 +12,7 @@ import { HomeContext } from '../contexts/HomeContext'
 import HeaderMobile from './HeaderMobile'
 import Navbar from './Navbar'
 import './Header.css'
-import { baseUrl } from './baseUrl'
+// import { baseUrl } from './baseUrl'
 import axios from 'axios'
 import { socket } from './socket'
 
@@ -87,14 +87,14 @@ function Header() {
 
 	const onSubmitSearch = e => {
 		// e.preventDefault()
-		// axios.get(baseUrl + '/search?name=' + searchValue)
+		// axios.get('/search?name=' + searchValue)
 		// 	.then(res => console.log(res))
 	}
 
-	const onChangeSearch = (e) => {
+	const onChangeSearch = async (e) => {
 		setSearchValue(e.target.value)
 		if(searchValue !== '') {
-			axios.get(baseUrl + '/search?name=' + searchValue)
+			await axios.get('/search?name=' + searchValue)
 			.then(res => {
 				 setSearchItem(res.data)
 			})
@@ -107,7 +107,7 @@ function Header() {
 
 	return (
 		<div className="header d-flex justify-content-between shadow-sm">
-			<Navbar style={navbarStyle} className={navbarClass}/>
+			<Navbar style={navbarStyle} className={navbarClass} isMobile={isMobile}/>
 			<div className="header-left d-flex align-items-center">
 				<div 
 					className="header-left__Nav d-flex align-items-center justify-content-center"

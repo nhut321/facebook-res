@@ -3,7 +3,7 @@ import { AuthContext } from '../../../contexts/AuthContext'
 import { HomeContext } from '../../../contexts/HomeContext'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { baseUrl } from '../../baseUrl'
+// import { baseUrl } from '../../baseUrl'
 
 export default function PostItem({
 		description, 
@@ -30,7 +30,7 @@ export default function PostItem({
 	
 	useEffect(() => {
 		const getComment = async () => {
-			await axios.get(baseUrl + '/comments/' + dataId)
+			await axios.get('/comments/' + dataId)
 				.then(res => {
 					res.data.map(v => {
 						
@@ -68,12 +68,11 @@ export default function PostItem({
 
 	const submitComment = (e) => {
 		e.preventDefault()
-		axios.post(baseUrl + '/comments/create',{
+		axios.post('/comments/create',{
 			userId: Auth.state.userId,
 			postId: dataId,
 			comment
 		}).then(result => {
-			console.log(result.data)
 			if(result.data.success) {
 				setComment('')
 				setCommentItem(v => {
@@ -178,7 +177,7 @@ export default function PostItem({
 			</div>
 			<div className="post-item__footer">
 				<div 
-					className="comment-lists d-flex flex-column-reverse"
+					className="comment-lists d-flex flex-column"
 					style={ commentItem <=0 ? {} : {
 						minHeight: '110px',
 						maxHeight: '190px',

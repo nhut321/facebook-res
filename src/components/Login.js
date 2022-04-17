@@ -88,14 +88,14 @@ export default function Login() {
 		<div className="login d-flex justify-content-center flex-wrap">
 			<div className="login-slogan">
 				<img src="/img/fakebook.png" alt=""/>
-				<h2>Nơi lạnh nhất không phải ở Bắc cực, nơi lạnh nhất đó là lòng người.</h2>
+				<h2>Nơi lạnh nhất không phải ở Bắc cực, nơi lạnh nhất đó là tim cậu.</h2>
 			</div>
 			<div className="login-form">
 				<div className="login-form-box p-3 shadow">
 					<form onSubmit={onSubmitForm} className='d-flex flex-column pb-4'>
 						<input
 							value={user.email}
-							type='text'
+							type='email'
 							className={validator.success || user.email !== '' ? 'form-input mb-3' : 'form-input wrong mb-3'}
 							placeholder='Email'
 							onChange={e => {
@@ -119,7 +119,7 @@ export default function Login() {
 						 	:
 							<div className="message mt-2 mb-2 text-danger">{validator.message}</div>
 						 }
-						<button className="btn btn-primary btn-lg mb-4">
+						<button className="btn-form btn btn-lg mb-4">
 							{
 								spinner 
 								?

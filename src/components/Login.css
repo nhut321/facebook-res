@@ -51,6 +51,11 @@
 	border: 1px solid #1877f2;
 }
 
+button.btn-form {
+	background-color: #6666ff;
+	color: white;
+}
+
 .register-btn {
 	border-top: 1px solid #dddfe2;
 }

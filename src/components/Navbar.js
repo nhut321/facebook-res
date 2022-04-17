@@ -1,7 +1,26 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
+import axios from 'axios'
 
-export default function Navbar({style, className}) {
+export default function Navbar({style, className, isMobile}) {
+	const [searchValue, setSearchValue] = useState('')
+	const [searchItem, setSearchItem] = useState([])
+
+	const onChangeInput = async e => {
+		setSearchValue(e.target.value)
+		if(searchValue !== '') {
+			try {
+				await axios.get('/search?name=' + searchValue)
+				.then(res => {
+					 setSearchItem(res.data)
+				})
+			} catch(err) {
+				console.log(err)
+			}
+		}
+	}
+
 	return (
 		<div className={`navbarr ${className} shadow`} style={style}>
 			<div className="navbarr-lists">
@@ -27,6 +46,54 @@ export default function Navbar({style, className}) {
 						<span>Hình ảnh</span>
 					</Link>
 				</div>
+				{
+					isMobile 
+					?
+					<div className="navbarr-item">
+						<form className='p-3 text-dark text-decoration-none d-flex'>
+							<i class="fs-4 me-2 fa-solid fa-magnifying-glass"></i>
+							<input 
+								className='border-0' 
+								placeholder='Tìm kiếm bạn bè...' 
+								type="text"
+								style={{outline: 'none'}}
+								value={searchValue}
+								onChange={onChangeInput}
+							/>
+						</form>
+							{
+								searchValue == '' 
+								?
+								<></>
+								:
+						<div className="friend-list p-3">
+							{
+								searchItem.map((v,i) => {
+									return (
+										<div key={i} className="friend-item mb-2">
+											<Link to={`/user/user-id?id=${v._id}`} className='text-dark text-decoration-none d-flex justify-content-start align-items-center '>
+												<div 
+													className="friend-item__avatar me-2" 
+													style={{
+														backgroundImage: `url(${v.avatar == '' ? '/img/avatar.png' : v.avatar})`,
+														width: '40px',
+														height: '40px',
+														borderRadius: '12px',
+														backgroundSize: 'cover'
+													}}
+												></div>
+												<span>{v.lname + ' ' + v.fname}</span>
+											</Link>
+										</div>
+									)
+								})
+							}
+						</div>
+							}
+					</div>
+					:
+					<></>
+				}
 				<div className="navbarr-item">
 					<Link to="#" className='text-dark text-decoration-none d-flex'>
 						<svg width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>

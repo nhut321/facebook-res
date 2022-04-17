@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState, memo } from 'react'
 import PostBox from './PostBox'
 import PostItem from './PostItem'
-import PostModal from './PostModal'
 import HomeSidebar from './HomeSidebar'
 import HomeRight from './HomeRight'
 import { HomeContext } from '../../../contexts/HomeContext'
@@ -38,15 +37,7 @@ function Home() {
 						})
 					}
 				</div>
-				{/* <PostModal /> */}
 			</div>
-			{
-				// modal.postModal 
-				// ? 
-				// <div className="post-modal-mask" onClick={modal.togglePostModal}></div>
-				// :
-				// <></>
-			}
 			<HomeRight />
 		</div>
 	)

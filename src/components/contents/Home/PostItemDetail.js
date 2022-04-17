@@ -2,7 +2,7 @@ import { useEffect, useContext, useState, useRef} from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { useLocation } from 'react-router-dom'
-import { baseUrl } from '../../baseUrl'
+// import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
 
 export default function PostItemDetail() {
@@ -15,7 +15,7 @@ export default function PostItemDetail() {
 	const postId = new URLSearchParams(search).get('post-id');
 
 	useEffect(() => {
-		axios.get(baseUrl+'/posts/'+postId)
+		axios.get('/posts/'+postId)
 			.then(res => {
 				setPostItem({
 					fullName: res.data.data.userId.fullName,
@@ -27,7 +27,7 @@ export default function PostItemDetail() {
 	},[])
 
 	useEffect(() => {
-		axios.get(baseUrl+'/comments/'+postId)
+		axios.get('/comments/'+postId)
 			.then(result => {
 				result.data.map(v => {
 					setCommentItem(item => {
@@ -47,7 +47,7 @@ export default function PostItemDetail() {
 
 	const submitComment = (e) => {
 		e.preventDefault()
-		axios.post(baseUrl + '/comments/create',{
+		axios.post('/comments/create',{
 			userId: Auth.state.userId,
 			postId: postId,
 			comment: comment
