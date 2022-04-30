@@ -5,7 +5,7 @@ import PostItem from '../Home/PostItem'
 import PostModal from '../Home/PostModal'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { HomeContext } from '../../../contexts/HomeContext'
-// import { baseUrl } from '../../baseUrl'
+import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
 
 export default function Post() {
@@ -19,7 +19,7 @@ export default function Post() {
 
 
 	useEffect(() => {
-		axios.get('/posts/user/'+ (userIdParams || Auth.state.userId))
+		axios.get(baseUrl + '/posts/user/'+ (userIdParams || Auth.state.userId))
 			.then(res => {
 				res.data.data.map(v => {
 					setPostItem(item => {

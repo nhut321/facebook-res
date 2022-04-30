@@ -3,7 +3,7 @@ import { AuthContext } from '../../../contexts/AuthContext'
 import { HomeContext } from '../../../contexts/HomeContext'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-// import { baseUrl } from '../../baseUrl'
+import { baseUrl } from '../../baseUrl'
 
 export default function PostItem({
 		description, 
@@ -30,7 +30,7 @@ export default function PostItem({
 	
 	useEffect(() => {
 		const getComment = async () => {
-			await axios.get('/comments/' + dataId)
+			await axios.get(baseUrl + '/comments/' + dataId)
 				.then(res => {
 					res.data.map(v => {
 						
@@ -68,7 +68,7 @@ export default function PostItem({
 
 	const submitComment = (e) => {
 		e.preventDefault()
-		axios.post('/comments/create',{
+		axios.post(baseUrl + '/comments/create',{
 			userId: Auth.state.userId,
 			postId: dataId,
 			comment

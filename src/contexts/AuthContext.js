@@ -34,7 +34,6 @@ function AuthContextProvider({children}) {
 					lname: res.data.user.lname,
 				})
 				axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
-				axios.defaults.baseURL = 'https://assbook-app.herokuapp.com'
 				// export const baseUrl = 'http://localhost:8080'
 				// export const baseUrl = 'https://assbook-app.herokuapp.com'
 			} else {

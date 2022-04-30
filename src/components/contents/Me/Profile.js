@@ -5,7 +5,7 @@ import { HomeContext } from '../../../contexts/HomeContext'
 import Post from './Post'
 import About from './About'
 import Friends from './Friends'
-// import { baseUrl } from '../../baseUrl'
+import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
 import { socket } from '../../socket'
 
@@ -23,7 +23,7 @@ export default function Profile({Auth}) {
 	const [friends, setFriends] = useState([])
 
 	useEffect(() => {
-		axios.get('/user/' + (Auth.userId || Auth.state.userId ))
+		axios.get(baseUrl + '/user/' + (Auth.userId || Auth.state.userId ))
 			.then(res => {
 				if (res.data.user.follower.includes(authContext.state.userId)) {
 					setFollow(true)
@@ -38,7 +38,7 @@ export default function Profile({Auth}) {
 
 	const followFn = () => {
 		setFollow(v => !v)
-		axios.put('/user/' + Auth.state.userId + '/follow', {
+		axios.put(baseUrl + '/user/' + Auth.state.userId + '/follow', {
 			currentId: authContext.state.userId
 		}).then(res => {
 		})
@@ -50,7 +50,7 @@ export default function Profile({Auth}) {
 
 	const unFollowFn = () => {
 		setFollow(v => !v)
-		axios.put('/user/' + Auth.state.userId + '/unfollow', {
+		axios.put(baseUrl + '/user/' + Auth.state.userId + '/unfollow', {
 			currentId: authContext.state.userId
 		}).then(res => console.log(res.data))
 		setFollower(v => {
@@ -60,7 +60,7 @@ export default function Profile({Auth}) {
 	}
 
 	const createConversation = async (receiverId) => {
-		await axios.post('/conversations/create', {
+		await axios.post(baseUrl + '/conversations/create', {
 			senderId: authContext.state.userId,
 			receiverId: Auth.state.userId
 		}).then(res => {

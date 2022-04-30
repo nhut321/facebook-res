@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import Register from './components/Register'
 import Home from './components/contents/Home'
+import Settings from './components/contents/Settings'
 import Chat from './components/contents/Chat'
 import Me from './components/contents/Me'
 import OtherUser from './components/contents/Me/OtherUser'
@@ -27,11 +28,12 @@ function App() {
             <Header />
             <div className='container' style={{marginTop: '70px'}}>
               <Routes>
-                <Route path='/' element={<Home />}/>
+                <Route path='/settings' element={<Settings />}/>
                 <Route path='/messages' element={<Chat />}/>
                 <Route path='/posts/detail/:id' element={<PostItemDetail />}/>
                 <Route path='/user/:user-id/*' element={<OtherUser />}/>
                 <Route path='/me/*' element={<Me />}/>
+                <Route path='/' element={<Home />}/>
               </Routes>
             </div>
           </HomeContextProvider>

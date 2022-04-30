@@ -50,9 +50,10 @@ export default function Chat() {
 				isMobile 
 				? 
 					<div className="messages-mobile-bar border-bottom">
-						{conversation.map(v => {
+						{conversation.map((v,i) => {
 							return (
 								<MobileBar
+									key={i}
 									item={v}
 									id={v._id}
 									userOnline={homeContext.userOnline}

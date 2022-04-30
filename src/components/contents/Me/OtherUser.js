@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Profile from './Profile'
-// import { baseUrl } from '../../baseUrl'
+import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
 import { socket } from '../../socket'
 
@@ -19,7 +19,7 @@ function OtherUser() {
 	})
 
 	useEffect(() => {
-		axios.get('/user/'+ userIdParams)
+		axios.get(baseUrl + '/user/'+ userIdParams)
 			.then(res => {
 				if (res.data.success) {
 					setProfileUser({

@@ -9,10 +9,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 import { AuthContext } from '../contexts/AuthContext'
 import { HomeContext } from '../contexts/HomeContext'
+// import { useOutsideClick } from './hooks/useOutsideClick'
 import HeaderMobile from './HeaderMobile'
 import Navbar from './Navbar'
 import './Header.css'
-// import { baseUrl } from './baseUrl'
+import { baseUrl } from './baseUrl'
 import axios from 'axios'
 import { socket } from './socket'
 
@@ -35,6 +36,12 @@ function Header() {
 		// transform: 'translateX(-150%)'
 		width: '70px'
 	})
+
+	
+
+// 	const navBtn = useRef(null)
+// 
+// 	useOutsideClick(navBtn)
 
 
 	const toggleNav = () => {
@@ -94,7 +101,7 @@ function Header() {
 	const onChangeSearch = async (e) => {
 		setSearchValue(e.target.value)
 		if(searchValue !== '') {
-			await axios.get('/search?name=' + searchValue)
+			await axios.get(baseUrl + '/search?name=' + searchValue)
 			.then(res => {
 				 setSearchItem(res.data)
 			})
@@ -107,9 +114,12 @@ function Header() {
 
 	return (
 		<div className="header d-flex justify-content-between shadow-sm">
-			<Navbar style={navbarStyle} className={navbarClass} isMobile={isMobile}/>
+
+			<Navbar navbarFn={toggleNav}  style={navbarStyle} className={navbarClass} isMobile={isMobile}/>
+			
 			<div className="header-left d-flex align-items-center">
-				<div 
+				<div
+					// ref={navBtn} 
 					className="header-left__Nav d-flex align-items-center justify-content-center"
 					onClick={toggleNav}
 				>
@@ -234,7 +244,7 @@ function Header() {
 								</div>
 								<div className="dropdown-item-right d-flex flex-column">
 									<Link to='/me'>
-										<span className='fs-5 fw-bold'>{Auth.state.fullName}</span>
+										<span className='fs-5 fw-bold'>{Auth.state.lname + ' ' + Auth.state.fname}</span>
 										<span className='text-muted'>Xem trang cá nhân của bạn</span>
 									</Link>
 								</div>
@@ -248,13 +258,15 @@ function Header() {
 									<span className='text-muted'>Hãy chung tay cải thiện Facebook.</span>
 								</div>
 							</li>
-							<li className="down-btn__dropdown-item d-flex align-items-center">
-								<div className="dropdown-item-left">
-									<img src="/img/setting-svgrepo-com.svg" alt=""/>
-								</div>
-								<div className="dropdown-item-right d-flex flex-column">
-									<span>Cài đặt & quyền riêng tư</span>
-								</div>
+							<li className="down-btn__dropdown-item">
+								<Link to='/settings' className='d-flex align-items-center text-dark text-decoration-none'>
+									<div className="dropdown-item-left">
+										<img src="/img/setting-svgrepo-com.svg" alt=""/>
+									</div>
+									<div className="dropdown-item-right d-flex flex-column">
+										<span>Cài đặt & quyền riêng tư</span>
+									</div>
+								</Link>
 							</li>
 							<li className="down-btn__dropdown-item d-flex align-items-center">
 								<div className="dropdown-item-left">

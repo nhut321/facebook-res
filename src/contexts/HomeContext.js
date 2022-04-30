@@ -71,7 +71,7 @@ function HomeContextProvider({children}) {
 
 	useEffect(() => {
 		const getPostFn = async () => {
-			await axios.get('/posts/friend-posts/' + Auth.state.userId, {
+			await axios.get(baseUrl+ '/posts/friend-posts/' + Auth.state.userId, {
 				headers: {
 					Authorization: 'Beaer ' + localStorage.getItem('token')
 				}
