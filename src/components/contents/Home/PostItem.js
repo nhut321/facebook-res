@@ -23,11 +23,10 @@ export default function PostItem({
 	const [comment, setComment] = useState('')
 	const [commentItem, setCommentItem] = useState([])
 	const [like, setLike] = useState(false)
+	const [likeArr, setLikeArr] = useState([])
 
 	const input = useRef()
 
-	const likePostLen = likePost.length
-	
 	useEffect(() => {
 		const getComment = async () => {
 			await axios.get(baseUrl + '/comments/' + dataId)
@@ -43,27 +42,41 @@ export default function PostItem({
 		getComment()
 	},[])
 
-	const likeFn = () => {
+	useEffect(() => {
+		const getLikeFn = async () => {
+			await axios.get(baseUrl + `/posts/${dataId}`)
+				.then(res => {
+					setLikeArr(res.data.data.like)
+				})
+		}
+		getLikeFn()
+	},[])
+
+	const likeFn = async () => {
 		setLike(v => !v)
-		// if(likePost.includes(Auth.state.userId)) {
-		// 	setLike(true)
-		// }
+		try {
+			await axios.put(baseUrl + `/posts/${dataId}/like`, {
+				userId: Auth.state.userId
+			})
+				.then(result => {
+					if (result.data.success){
+						setLikeArr(v => [...v, Auth.state.userId])
+						console.log('like')
+					} else {
+						setLikeArr(likeArr.filter(v => v != Auth.state.userId))
+						console.log('unlike')
+					}
+				})
+		} catch(err) {
+			console.log(err)
+		}
 
-
-		// if(like) {
-		// 	console.log(true)
-		// 	console.log(likePost)
+		// if(likeArr.includes(Auth.state.userId)) {
+		// 	setLikeArr(likeArr.filter(v => v!= Auth.state.userId))
 		// } else {
-		// 	console.log(false)
-		// 	// likePost.push(Auth.state.userId) 
-		// 	console.log(likePost)
+		// 	likeArr.push(Auth.state.userId)
+		// 	console.log('liked')
 		// }
-
-		// like
-		// ? 
-		// 	likePost.filter(item => item != Auth.state.userId)
-		// : 
-		// 	likePost.push(Auth.state.userId) 
 	}
 
 	const submitComment = (e) => {
@@ -151,8 +164,8 @@ export default function PostItem({
 				
 				<div className='post-item__body-count mt-2 mb-2 d-flex justify-content-between'>
 					<div className="post-item__body-count-like">
-						{likePostLen}
-						{likePostLen > 1 ? ' likes' : ' like'}
+						{likeArr.length}
+						{likeArr.length > 1 ? ' likes' : ' like'}
 					</div>
 					<div className="post-item__body-count-comment">
 						{commentItem.length}
@@ -161,7 +174,8 @@ export default function PostItem({
 				</div>
 				<div className="post-item__body-btn d-flex align-items-center">
 					<button 
-						className={likePost.includes(Auth.state.userId) ? 'like-btn liked' : 'like-btn'}
+						// className={likePost.includes(Auth.state.userId) || like ? 'like-btn liked' : 'like-btn'}
+						className={likePost.includes(Auth.state.userId) || like ? 'like-btn liked' : 'like-btn'}
 						// like ? 'like-btn liked d-flex align-items-center justify-content-center' : 'like-btn d-flex align-items-center justify-content-center'
 						onClick={likeFn}
 					>
