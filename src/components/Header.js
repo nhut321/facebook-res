@@ -190,12 +190,12 @@ function Header() {
 					</Link>
 				</div>
 				<div className="header-right__options d-flex align-items-center">
-					<div className="header-right__options-item messenger">
+					<div className="header-right__options-item">
 						<i className="fa-solid fa-user-group"></i>
 					</div>
-					<div className="header-right__options-item messenger">
+					<Link to='/messages' className="header-right__options-item messenger" style={{color: '#38368b'}}>
 						<i className="fa-solid fa-envelope fs-5"></i>
-					</div>
+					</Link>
 					<div 
 						className="header-right__options-item notifi"
 						onClick={toggleNotiFn}

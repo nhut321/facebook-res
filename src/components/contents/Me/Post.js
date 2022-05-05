@@ -21,11 +21,7 @@ export default function Post() {
 	useEffect(() => {
 		axios.get(baseUrl + '/posts/user/'+ (userIdParams || Auth.state.userId))
 			.then(res => {
-				res.data.data.map(v => {
-					setPostItem(item => {
-						return [...item, v]
-					})
-				})
+				setPostItem(res.data.data)
 			})
 	},[])
 

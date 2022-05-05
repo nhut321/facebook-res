@@ -312,7 +312,7 @@
 	justify-content: center;
 	align-items: center;
 }
-
+/*
 .like-btn .like-icon {
 	display: block;
 }
@@ -328,7 +328,7 @@
 .like-btn.liked .like-icon {
 	display: none;
 }
-
+*/
 .post-item__footer {
 	margin: 16px 0 0 0;
 }
@@ -353,6 +353,10 @@
 	height: 32px;
 	border-radius: 50%;
 	background-size: contain;
+}
+
+.comment-item__avatar img {
+	width: 100%;
 }
 
 .comment-item__info {

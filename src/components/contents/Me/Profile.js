@@ -111,7 +111,7 @@ export default function Profile({Auth}) {
 							</div>
 							<div className="following">
 								Đang theo dõi: 
-								{' ' + follower.length}
+								{' ' + following.length}
 							</div>
 						</div>
 					</div>

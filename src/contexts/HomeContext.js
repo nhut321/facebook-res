@@ -91,7 +91,7 @@ function HomeContextProvider({children}) {
 	const postFn = async (url) => {
 		if(state.description !== '' || state.img !=='') {
 			try {
-				await axios.post('/posts/create', {
+				await axios.post(baseUrl + '/posts/create', {
 					description: state.description,
 					userId: Auth.state.userId,
 					imageUrl: url

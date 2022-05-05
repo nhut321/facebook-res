@@ -53,30 +53,21 @@ export default function PostItem({
 	},[])
 
 	const likeFn = async () => {
-		setLike(v => !v)
-		try {
-			await axios.put(baseUrl + `/posts/${dataId}/like`, {
-				userId: Auth.state.userId
-			})
-				.then(result => {
-					if (result.data.success){
-						setLikeArr(v => [...v, Auth.state.userId])
-						console.log('like')
-					} else {
-						setLikeArr(likeArr.filter(v => v != Auth.state.userId))
-						console.log('unlike')
-					}
-				})
-		} catch(err) {
-			console.log(err)
-		}
+		setLike(true)
+		await axios.put(baseUrl + `/posts/${dataId}/like`,{
+			userId: Auth.state.userId
+		})
+			.then(data => console.log(data.data))
+		setLikeArr(v => [...v, Auth.state.userId])
+	}
 
-		// if(likeArr.includes(Auth.state.userId)) {
-		// 	setLikeArr(likeArr.filter(v => v!= Auth.state.userId))
-		// } else {
-		// 	likeArr.push(Auth.state.userId)
-		// 	console.log('liked')
-		// }
+	const unlikeFn = async () => {
+		setLike(false)
+		await axios.put(baseUrl + `/posts/${dataId}/unlike`,{
+			userId: Auth.state.userId
+		})
+			.then(data => console.log(data.data))
+		setLikeArr(likeArr.filter(v => v!= Auth.state.userId))
 	}
 
 	const submitComment = (e) => {
@@ -173,16 +164,26 @@ export default function PostItem({
 					</div>
 				</div>
 				<div className="post-item__body-btn d-flex align-items-center">
-					<button 
-						// className={likePost.includes(Auth.state.userId) || like ? 'like-btn liked' : 'like-btn'}
-						className={likePost.includes(Auth.state.userId) || like ? 'like-btn liked' : 'like-btn'}
-						// like ? 'like-btn liked d-flex align-items-center justify-content-center' : 'like-btn d-flex align-items-center justify-content-center'
-						onClick={likeFn}
-					>
-						<i className="liked-icon fa-solid fa-thumbs-up me-2"></i>
-						<i className="like-icon fa-regular fa-thumbs-up me-2"></i>
-						Like
-					</button>
+					{
+						likeArr.includes(Auth.state.userId) || like 
+						?
+						<button className="like-btn liked" onClick={unlikeFn}>
+							<i className="liked-icon fa-solid fa-thumbs-up me-2"></i>
+						</button>
+						:
+						<button className="like-btn" onClick={likeFn}>
+							<i className="liked-icon fa-regular fa-thumbs-up me-2"></i>
+						</button>
+					}
+					{/* <button  */}
+					{/* 	// className={likePost.includes(Auth.state.userId) || like ? 'like-btn liked' : 'like-btn'} */}
+					{/* 	className={likePost.includes(Auth.state.userId) || like ? 'like-btn liked' : 'like-btn'} */}
+					{/* 	// like ? 'like-btn liked d-flex align-items-center justify-content-center' : 'like-btn d-flex align-items-center justify-content-center' */}
+					{/* 	onClick={likeFn} */}
+					{/* > */}
+					{/* 	<i className="like-icon fa-regular fa-thumbs-up me-2"></i> */}
+					{/* 	Like */}
+					{/* </button> */}
 					<button onClick={focusInput}>
 						<i className="fa-regular fa-message me-2"></i>
 						Comment
