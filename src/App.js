@@ -17,10 +17,18 @@ function App() {
   const [useOnline, setUserOnline] = useState([])
   const Auth = useContext(AuthContext)
   const [switchLogin, setSwitchLogin] = useState(false)
-
-
   return (
     <div className="App">
+      {
+          Auth.spinner
+          ?
+          <div className="spinner-border" role="status" style={{position: 'fixed',
+    top: '25%'}}>
+            <span className="sr-only">Loading...</span>
+          </div>
+          :
+          <></>
+      }
       {
         Auth.state.isLogin 
         ? 
@@ -44,12 +52,7 @@ function App() {
             </Route>
             <Route path='/register' element={<Register />}>
             </Route>
-            
           </Routes>
-            {/* <Routes> */}
-            {/*   <Route path='/login' element ={<Login />} /> */}
-            {/*   <Route path='/register' element={<Register />}/> */}
-            {/* </Routes> */}
           </>
       }
 

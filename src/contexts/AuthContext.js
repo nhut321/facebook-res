@@ -9,40 +9,42 @@ export const AuthContext = createContext()
 
 function AuthContextProvider({children}) {
 	const navigate = useNavigate()
-	// const [isLogin, setIsLogin] = useState(() => {
-	// 	
-	// })
 	const [state,dispatch] = useReducer(authReducer, authInit)
-
-	
+	const [spinner, setSpinner] = useState(true)
 
 	useEffect(() => {
-		axios.get(baseUrl, {
-			headers: {
-				Authorization: 'Beaer ' + localStorage.getItem('token')
-			}
-		}).then(res => {
-			if (res.data.success) {
-				dispatch({
-					type: 'LOGIN',
-					fullName: res.data.user.fullName,
-					email: res.data.user.email, 
-					userId: res.data.user.userId,
-					verified: res.data.user.verified,
-					avatar: res.data.user.avatar,
-					fname: res.data.user.fname,
-					lname: res.data.user.lname,
+		const fetchData = async () => {
+			try {
+				await axios.get(baseUrl, {
+					headers: {
+						Authorization: 'Beaer ' + localStorage.getItem('token')
+					}
+				}).then(res => {
+					setSpinner(false)
+					if (res.data.success) {
+						dispatch({
+							type: 'LOGIN',
+							fullName: res.data.user.fullName,
+							email: res.data.user.email, 
+							userId: res.data.user.userId,
+							verified: res.data.user.verified,
+							avatar: res.data.user.avatar,
+							fname: res.data.user.fname,
+							lname: res.data.user.lname,
+						})
+						axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+						// export const baseUrl = 'http://localhost:8080'
+						// export const baseUrl = 'https://assbook-app.herokuapp.com'
+					} else {
+						axios.defaults.headers.common['Authorization'] = ''
+						navigate('/login')
+					}
 				})
-				axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
-				// export const baseUrl = 'http://localhost:8080'
-				// export const baseUrl = 'https://assbook-app.herokuapp.com'
-			} else {
-				axios.defaults.headers.common['Authorization'] = ''
-				navigate('/login')
+			} catch(err) {
+				console.log('Server connect error')
 			}
-		}).catch(() => {
-
-		})
+		}
+		fetchData()
 	},[state.isLogin])
 
 	
@@ -50,7 +52,8 @@ function AuthContextProvider({children}) {
 
 	const data = {
 		state,
-		dispatch
+		dispatch,
+		spinner
 	}
 	return (
 		<AuthContext.Provider value={data}>
