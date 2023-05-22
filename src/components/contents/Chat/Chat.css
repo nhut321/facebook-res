@@ -118,25 +118,28 @@
     height: 100%;
 }
 
-.chat-history ul::-webkit-scrollbar {
+.chat-history div::-webkit-scrollbar {
   display: none;
 }
 
-.chat-history ul {
+.chat-history .chat-history__list {
+    /* display: flex; */
     padding: 0;
     height: 100%;
     overflow: scroll;
+    justify-content: flex-end;
+    flex-direction: column;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
 
-.chat-history ul li {
+.chat-history .chat-history__list .chat-history__item {
     list-style: none;
     margin-bottom: 0.75rem;
 }
 
-.chat-history ul li:last-child {
-    margin-bottom: 0px;
+.chat-history .chat-history__list .chat-history__item:last-child {
+    margin-bottom: 10px;
 }
 
 .chat-history .message-data {
@@ -228,6 +231,10 @@
 .messages-right {
     position: relative;
     height: 100%;
+}
+
+.messages-right.mobile {
+    height: 90%;
 }
 
 .messages-right__content-type {

@@ -3,6 +3,7 @@
 	flex-wrap: wrap;
 	padding: 1rem;
 	background-color: white;
+	height: 10%;
 }
 
 .messages-mobile-bar__item {

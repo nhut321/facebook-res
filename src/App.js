@@ -1,6 +1,8 @@
 import { useContext,useState, useEffect, memo } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AuthContext } from './contexts/AuthContext'
+import { profileContext } from './contexts/ProfileContext'
+import ProfileContextProvider from './contexts/ProfileContext'
 import HomeContextProvider from './contexts/HomeContext'
 import Header from './components/Header'
 import Login from './components/Login'
@@ -12,6 +14,7 @@ import Me from './components/contents/Me'
 import OtherUser from './components/contents/Me/OtherUser'
 import PostItemDetail from './components/contents/Home/PostItemDetail'
 import './App.css';
+import ChatContextProvider from './contexts/ChatContext'
 
 function App() {
   const [useOnline, setUserOnline] = useState([])
@@ -22,10 +25,13 @@ function App() {
       {
           Auth.spinner
           ?
+          <>
           <div className="spinner-border" role="status" style={{position: 'fixed',
     top: '25%'}}>
             <span className="sr-only">Loading...</span>
           </div>
+          <h1>Đang kết nối tới server, Xin vui lòng đợi trong giây lát :3</h1>
+          </>
           :
           <></>
       }
@@ -34,16 +40,20 @@ function App() {
         ? 
           <HomeContextProvider>
             <Header />
-            <div className='container' style={{marginTop: '70px'}}>
-              <Routes>
-                <Route path='/settings' element={<Settings />}/>
-                <Route path='/messages' element={<Chat />}/>
-                <Route path='/posts/detail/:id' element={<PostItemDetail />}/>
-                <Route path='/user/:user-id/*' element={<OtherUser />}/>
-                <Route path='/me/*' element={<Me />}/>
-                <Route path='/' element={<Home />}/>
-              </Routes>
-            </div>
+            <ProfileContextProvider>
+              <ChatContextProvider>
+              <div className='container' style={{marginTop: '70px'}}>
+                <Routes>
+                  <Route path='/settings' element={<Settings />}/>
+                  <Route path='/messages' element={<Chat />}/>
+                  <Route path='/posts/detail/:id' element={<PostItemDetail />}/>
+                  <Route path='/user/:user-id/*' element={<OtherUser />}/>
+                  <Route path='/me/*' element={<Me />}/>
+                  <Route path='/' element={<Home />}/>
+                </Routes>
+              </div>
+              </ChatContextProvider>
+            </ProfileContextProvider>
           </HomeContextProvider>
         :
           <>

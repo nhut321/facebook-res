@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
 import { socket } from '../../socket'
+import { useMediaQuery } from 'react-responsive'
+import { chatContext } from '../../../contexts/ChatContext'
 
 export default function MessageRight({
 	selectUser, 
@@ -9,8 +11,13 @@ export default function MessageRight({
 	Auth, 
 	user, 
 	setMessData,
-	conversationId
+	conversationId,
+	scroll
 }) {
+	const Chat = useContext(chatContext)
+	const isMobile = useMediaQuery({
+		query: '(max-width: 46.25em)' 
+	})
 	const [message, setMessage] = useState('')
 	const [typing, setTyping] = useState({
 		display: 'none'
@@ -55,15 +62,14 @@ export default function MessageRight({
 	 	socket.on('server-sending-on-blur-typing', () => setTyping({display: 'none'}))
 	},[])
 
-	const scrollBottom = (item) => {
-		item.scrollTop = item.scrollHeight;
+	const scrollBottom = () => {
+		messageBox.current?.scrollIntoView(true)
 	}
-
 	useEffect(() => {
-		if(messageBox.current) {
-			messageBox.current.scrollIntoView({ behavior: 'smooth'})
-		}
-	},[messData])
+		scrollBottom()
+	},[messData, Chat.conversationId])
+
+	// console.log(scroll)
 
 
 	const onBlurInput = () => {
@@ -72,40 +78,35 @@ export default function MessageRight({
 	}
 
 	return (
-		<div className="messages-right col-9" style={{backgroundColor: 'white'}}>
+		<div className={isMobile ? "messages-right mobile col-9" : "messages-right col-9"} style={{backgroundColor: 'white'}}>
 			{
 				selectUser 
 				?
 				<>
 				<div className="messages-right__header border-bottom d-flex justify-content-between align-items-center">
-					<div className="messages-right__header-avatar" style={{backgroundImage: "url('/img/avatar.png')"}}></div>
+					<div className="messages-right__header-avatar" style={{backgroundImage: user.avatar == '' ? "url('/img/avatar.png')" : user.avatar}}></div>
 					<div className="messages-right__header-info">
 						<span className='fw-bold'>{user.fullName}</span>
 					</div>
 				</div>
 				<div className="messages-right__content">
 					<div className="chat-history">
-	                    <ul ref={messageBox} className="m-b-0"> 
-	                    	<div ref={messageBox}>
-	                    	{
-	                    		messData.map((v,i) => {
-	                    				if(v.senderId == Auth.state.userId) {
-					                        return (
-					                        	<li key={i} className="clearfix">
-							                        <div className="message my-message">{v.message}</div>
-							                    </li>
-							                )
-	                    				} else {
-	                    					return (
-	                    						<li key={i} className="clearfix">
-							                        <div className="message other-message float-left">{v.message}</div>
-							                    </li>
-							                )
-	                    				}
-	                    		})
-	                    	}
-	                    	</div>
-	                    </ul>
+	                    <div className="m-b-0 chat-history__list">
+								{
+									messData.map((v,i) => {
+										return (
+											<div ref={messageBox}>
+											
+											<div className='clearfix chat-history__item'>
+												<div className={v.senderId == Auth.state.userId ? 'message my-message' : 'message other-message float-left'}>{v.message}</div>
+											</div>
+
+
+									</div>
+										)
+									})
+								}
+	                    </div>
 	                </div>
 				</div>
                 <form 

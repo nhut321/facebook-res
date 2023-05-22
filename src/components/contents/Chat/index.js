@@ -22,11 +22,12 @@ export default function Chat() {
 	const [conversationId, setConversationId] = useState('')
 	const [friends, setFriends] = useState([])
 	const [user, setUser] = useState({})
+	const [scroll, setScroll] = useState(false)
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const result = await axios.get(baseUrl + '/conversations/' + Auth.state.userId)
-			setConversation(value => {
+			await setConversation(value => {
 				const res = result.data.conversation
 				return res
 			})
@@ -40,9 +41,8 @@ export default function Chat() {
 		setConversationId(conversationId)
 		setMessData(message.data.message)
 		setSelectUser(true)
+		setScroll(true)
 	}
-
-	// console.log(homeContext.userOnline)
 
 	return (
 		<div className="messages row">
@@ -87,13 +87,13 @@ export default function Chat() {
 					<div className="messages-left__content-lists">
 
 						{
-							conversation.map((value,key) => { 
+							conversation.map((value,key) => {
 								return (
 									<Conversation 
 										key={key} 
 										value={value} 
 										currentId={Auth.state.userId}
-										homeContext={homeContext}
+										userOnline={homeContext.userOnline}
 										selectConversation={selectConversation}
 									/>
 								)
@@ -110,6 +110,7 @@ export default function Chat() {
 				Auth={Auth}
 				user={user}
 				conversationId={conversationId}
+				scroll={scroll}
 			/>
 		</div>
 	)

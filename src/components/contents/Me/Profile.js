@@ -8,6 +8,8 @@ import Friends from './Friends'
 import { baseUrl } from '../../baseUrl'
 import axios from 'axios'
 import { socket } from '../../socket'
+import { profileContext } from '../../../contexts/ProfileContext'
+// import AvatarEdit from './AvatarEdit'
 
 export default function Profile({Auth}) {
 	const navigate = useNavigate()
@@ -21,6 +23,8 @@ export default function Profile({Auth}) {
 		following: []
 	})
 	const [friends, setFriends] = useState([])
+	// const [avatarBox, setAvatarBox] = useState(true)
+	const avatarEdit = useContext(profileContext)
 
 	useEffect(() => {
 		axios.get(baseUrl + '/user/' + (Auth.userId || Auth.state.userId ))
@@ -69,20 +73,27 @@ export default function Profile({Auth}) {
 	}
 
 	const fullName = Auth.state.fname + ' ' + Auth.state.lname || Auth.state.fname + ' ' + Auth.state.lname
-	
 	return (
 		<>
 			<div className="profile-header shadow-sm" style={{backgroundImage: 'url("/img/cover.jpg")'}}>
 				{/* <div className="profile-cover"> */}
 				{/* 	<img src="/img/cover.png" alt=""/> */}
 				{/* </div> */}
+				{
+					// avatarBox ? <AvatarEdit /> : <> </>
+				}
 				<div className="profile-info pb-4">
 					<div className="profile-info__left">
 						<div 
 							className="profile-info__left-avatar"
 							style={{
-								backgroundImage: `url("${Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar}")`
+								backgroundImage: `url("${Auth.state.avatar == '' 
+								? 
+								'/img/avatar.png'
+								: 
+								Auth.state.avatar}")`
 							}}
+							onClick={avatarEdit.avatarEditFn}
 						>
 							<i className="fa-solid fa-camera"></i>
 							{/* <img src={Auth.state.avatar == '' ? '/img/avatar.png' : Auth.state.avatar} alt=""/> */}

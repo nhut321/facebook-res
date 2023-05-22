@@ -23,8 +23,10 @@ export default function Post() {
 			.then(res => {
 				setPostItem(res.data.data)
 			})
+		return () => {
+			setPostItem([])
+		}
 	},[])
-
 
 
 

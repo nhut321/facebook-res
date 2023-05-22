@@ -15,6 +15,10 @@ function authReducer(state,action) {
 			return {...state, isLogin: false, email: ''}
 		case 'USER_ONLINE':
 			return {...state, socketId: action.socketId}
+		case 'CHANGE_AVATAR':
+			return {
+				...state, avatar: action.avatar
+			}
 		default:
 			return state
 	}
