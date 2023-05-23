@@ -19,7 +19,7 @@ export default function Me() {
 				avatarEdit.avatarEdit
 				?
 				<>
-					<AvatarEdit />
+					<AvatarEdit userId={Auth.state.userId} />
 					<div className="mask" onClick={avatarEdit.avatarEditFn}></div>
 				</>
 				:

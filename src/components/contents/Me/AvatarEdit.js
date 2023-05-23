@@ -1,9 +1,11 @@
 import { useState, useCallback, useContext, useRef } from 'react'
+import axios from 'axios'
 import Cropper from 'react-easy-crop'
 import { profileContext } from '../../../contexts/ProfileContext'
 import { AuthContext } from '../../../contexts/AuthContext'
+import { baseUrl } from '../../baseUrl'
 
-export default function AvatarEdit() {
+export default function AvatarEdit({userId}) {
     const [crop, setCrop] = useState({ x: 0, y: 0 })
     const [zoom, setZoom] = useState(1)
     const [selectImg, setSelectImg] = useState(false)
@@ -38,16 +40,14 @@ export default function AvatarEdit() {
     }, [])
 
     const generateImg = (img, px) => {
-        console.log(px)
         const originImg = new Image()
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
         originImg.onload = () => {
             ctx.drawImage(originImg, px.x, px.y, px.width, px.height, 0,0,px.width, px.height)
         }
-
-        originImg.src = img 
-
+        originImg.src = img
+        
         canvas.width = px.width
         canvas.height = px.height
 
@@ -73,11 +73,9 @@ export default function AvatarEdit() {
         promise.then(v => {
             console.log(v)
         })
-
-        return promise
-
-        // console.log(canvas.toDataURL('image/jpeg'))
     }
+
+    console.log(auth.state.userId)
 
     return (
         <div className="avatar-edit">

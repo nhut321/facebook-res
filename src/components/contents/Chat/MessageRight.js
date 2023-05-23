@@ -67,7 +67,7 @@ export default function MessageRight({
 	}
 	useEffect(() => {
 		scrollBottom()
-	},[messData, Chat.conversationId])
+	},[messData, Chat.conversationId, message])
 
 	// console.log(scroll)
 
